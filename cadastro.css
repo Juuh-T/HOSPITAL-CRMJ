@@ -1,0 +1,332 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Montserrat', sans-serif;
+}
+
+:root {
+    --cor-fundo: #e9edf5;
+    --cor-header: #d2e8e3;
+    --cor-caixa: #dddddd;
+    --cor-card: #eef2fa;
+    --cor-verde-claro: #cce6df;
+    --cor-verde-medio: #afd6cf;
+    --cor-texto: #28504d;
+    --cor-cinza: #777;
+    --cor-borda: #c8ccd1;
+
+    --altura-header: clamp(45px, 6vh, 60px);
+}
+
+html,
+body {
+    width: 100%;
+    height: 100%;
+}
+
+body {
+    background-color: var(--cor-fundo);
+    color: var(--cor-texto);
+    overflow: hidden;
+}
+
+/* HEADER */
+
+header {
+    height: var(--altura-header);
+    background-color: var(--cor-header);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 30px;
+}
+
+header h1 {
+    font-size: 30px;
+    color: #333;
+    text-shadow: 2px 2px 4px #999;
+}
+
+.sair {
+    font-size: 25px;
+    color: #333;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* CONTAINER */
+
+.container {
+    width: 100%;
+    height: calc(100vh - var(--altura-header));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* CAIXA EXTERNA */
+
+.card-cadastro {
+    width: 88vw;
+    height: 82vh;
+    background-color: var(--cor-card);
+    border: 24px solid var(--cor-caixa);
+    border-radius: 30px;
+    box-shadow: inset 0 0 6px #999;
+    display: flex;
+    padding: clamp(25px, 3vw, 45px);
+}
+
+/* LADO ESQUERDO */
+
+.lado-cadastro {
+    flex: 1.8;
+    padding-right: clamp(25px, 3vw, 45px);
+}
+
+.lado-cadastro h2 {
+    font-size: clamp(22px, 2vw, 32px);
+    font-weight: 500;
+    margin-bottom: 12px;
+}
+
+hr {
+    border: none;
+    height: 1px;
+    background-color: #d2d2d2;
+    margin-bottom: 30px;
+}
+
+.form-cadastro {
+    width: 100%;
+    max-width: 720px;
+    margin: 0 auto;
+}
+
+.linha-inputs {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 12px;
+}
+
+.grupo-input {
+    display: flex;
+    flex-direction: column;
+    color: var(--cor-cinza);
+}
+
+.grupo-input label,
+.grupo-genero > label {
+    font-size: 15px;
+    margin-left: 8px;
+    margin-bottom: 5px;
+    color: #8a8a8a;
+}
+
+.grupo-input input,
+.grupo-login input {
+    height: 45px;
+    border: 1px solid var(--cor-borda);
+    border-radius: 8px;
+    background-color: transparent;
+    outline: none;
+    padding: 0 12px;
+    font-size: 15px;
+    color: var(--cor-cinza);
+}
+
+.grupo-input input:focus,
+.grupo-login input:focus {
+    border-color: #9fc9c1;
+    box-shadow: 0 0 4px #aad7cf;
+}
+
+.grupo-input {
+    flex: 1;
+}
+
+.cpf {
+    flex: 1.4;
+}
+
+.data-nascimento {
+    flex: 1;
+}
+
+.inputs-data {
+    display: flex;
+    gap: 8px;
+}
+
+.inputs-data input {
+    width: 80px;
+    text-align: center;
+}
+
+.grupo-genero {
+    margin-top: 15px;
+    margin-bottom: 22px;
+    color: var(--cor-cinza);
+}
+
+.opcoes-genero {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+    margin-top: 8px;
+    margin-left: 8px;
+}
+
+.opcoes-genero label {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    cursor: pointer;
+    color: #8a8a8a;
+}
+
+.opcoes-genero input {
+    width: 22px;
+    height: 22px;
+    accent-color: var(--cor-verde-medio);
+}
+
+.data-admissao {
+    width: 270px;
+}
+
+/* DIVISÓRIA */
+
+.divisoria {
+    width: 1px;
+    background-color: #d2d2d2;
+    margin: 0 clamp(25px, 3vw, 45px);
+}
+
+/* LADO DIREITO */
+
+.lado-login {
+    flex: 0.9;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 55px;
+}
+
+.lado-login h3 {
+    font-size: clamp(32px, 3vw, 50px);
+    color: var(--cor-texto-claro, #6B7775);
+    margin-bottom: 30px;
+    text-shadow: 2px 2px 4px #999;
+}
+
+.grupo-login {
+    width: 100%;
+    max-width: 300px;
+    position: relative;
+    margin-bottom: 12px;
+}
+
+.grupo-login input {
+    width: 100%;
+    color: #777;
+}
+
+.grupo-login input::placeholder {
+    color: #999;
+}
+
+.olho-senha {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #999;
+    cursor: pointer;
+    font-size: 18px;
+}
+
+.grupo-login input[type="password"],
+.grupo-login input[type="text"] {
+    padding-right: 42px;
+}
+
+.btn-salvar {
+    width: 100%;
+    max-width: 300px;
+    height: 50px;
+    border: none;
+    border-radius: 15px;
+    background-color: var(--cor-verde-claro);
+    color: var(--cor-texto);
+    font-size: 22px;
+    cursor: pointer;
+    box-shadow: 0 4px 5px #aaa;
+    margin-top: 12px;
+    transition: 0.2s;
+}
+
+.btn-salvar:hover {
+    background-color: var(--cor-verde-medio);
+    transform: scale(1.02);
+}
+
+/* RESPONSIVO */
+
+@media (max-width: 1000px) {
+    body {
+        overflow: auto;
+    }
+
+    .container {
+        height: auto;
+        padding: 30px 0;
+    }
+
+    .card-cadastro {
+        width: 90vw;
+        height: auto;
+        flex-direction: column;
+    }
+
+    .lado-cadastro {
+        padding-right: 0;
+    }
+
+    .divisoria {
+        width: 100%;
+        height: 1px;
+        margin: 30px 0;
+    }
+
+    .lado-login {
+        padding-top: 0;
+    }
+}
+
+@media (max-width: 650px) {
+    .linha-inputs {
+        flex-direction: column;
+    }
+
+    .opcoes-genero {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+
+    .data-admissao {
+        width: 100%;
+    }
+
+    .inputs-data input {
+        width: 100%;
+    }
+
+    header h1 {
+        font-size: 24px;
+    }
+}
