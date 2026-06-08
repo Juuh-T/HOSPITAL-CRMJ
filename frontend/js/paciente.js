@@ -1,3 +1,14 @@
+
+// verificar se o medico esta logado no sistema quando ele abrir a pagina do paciente.
+if ( localStorage.getItem("usuarioPermitido") !== "sim" )
+{
+    window.location.href = "index.html"
+}
+
+
+    
+
+
 document.addEventListener("DOMContentLoaded", function () {
     const botaoAdicionar = document.querySelector(".btn-add");
     const listaPacientes = document.querySelector(".lista-pacientes");
@@ -276,3 +287,12 @@ document.addEventListener("DOMContentLoaded", function () {
     prepararPacientesIniciais();
     selecionarPaciente(pacienteSelecionado);
 });
+
+
+// redefinir acesso login
+function js_sair(){
+    localStorage.removeItem("usuarioPermitido")
+    localStorage.removeItem("usuarioAtual")
+    
+    window.location.href = "index.html"
+}

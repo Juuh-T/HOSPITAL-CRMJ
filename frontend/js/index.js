@@ -1,4 +1,5 @@
-    function mostrarSenha() {
+   
+   function mostrarSenha() {
         let senha = document.getElementById("senha");
         let icone = document.getElementById("iconeOlho");
 
@@ -12,3 +13,31 @@
             icone.classList.add("bi-eye-slash");
         }
     }
+
+    // Funcao do login do max
+    function js_fazerLogin() 
+    {
+        let usuario = document.getElementById("usuario").value
+        let senha = document.getElementById("senha").value
+
+        if ( senha === "" || usuario === "")
+        {
+            alert("Digite seu login.")
+            return
+        }
+        
+        if ( senha === "123" && usuario === "pedrao" ) //passou no teste
+        {
+            localStorage.setItem("usuarioPermitido", "sim")
+            localStorage.setItem("usuarioAtual", usuario)
+
+            window.location.href = "paciente.html"
+        }
+        else 
+        {
+            alert('login invalido')
+        }
+    }
+
+
+    
