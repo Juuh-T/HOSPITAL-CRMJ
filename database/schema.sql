@@ -2,6 +2,7 @@ CREATE TABLE `paciente` (
   `id_paciente` int PRIMARY KEY AUTO_INCREMENT,
   `nome` varchar(255) NOT NULL,
   `idade` int,
+  `peso` double,
   `cpf_paciente` varchar(11) UNIQUE NOT NULL
 );
 
