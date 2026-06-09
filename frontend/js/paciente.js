@@ -1,15 +1,49 @@
 
-// verificar se o medico esta logado no sistema quando ele abrir a pagina do paciente.
-if ( localStorage.getItem("usuarioPermitido") !== "sim" )
-{
-    window.location.href = "index.html"
+// reconhece a sessao pelo cookie
+window.onload = js_verificarSessao;
+
+function js_verificarSessao(){
+
+    fetch("../backend/verificar_sessao.php")
+
+    .then(function (respostaPhpSessao) 
+    {
+        return respostaPhpSessao.json();
+    })
+
+    .then(function (dadosSessao) 
+    {
+        if (dadosSessao.status === false) 
+        {
+            alert(dadosSessao.mensagem);
+            window.location.href = "index.html";
+        }
+
+    //se tudo estiver ok inicia a pagina
+    js_iniciarPaginaPaciente();
+        
+    });
+}
+
+function js_sair(){
+    fetch("../backend/logout.php")
+
+    .then(function (respLogout){
+        return respLogout.json();
+    })
+
+    .then( function ( dadosLogout ){
+        if ( dadosLogout.status === true ){
+            window.location.href = "index.html"; 
+        }
+    })
 }
 
 
     
 
 
-document.addEventListener("DOMContentLoaded", function () {
+function js_iniciarPaginaPaciente () {
     const botaoAdicionar = document.querySelector(".btn-add");
     const listaPacientes = document.querySelector(".lista-pacientes");
     const tituloPaciente = document.querySelector("#tituloPaciente");
@@ -286,13 +320,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
     prepararPacientesIniciais();
     selecionarPaciente(pacienteSelecionado);
-});
+};
 
 
-// redefinir acesso login
-function js_sair(){
-    localStorage.removeItem("usuarioPermitido")
-    localStorage.removeItem("usuarioAtual")
-    
-    window.location.href = "index.html"
-}
