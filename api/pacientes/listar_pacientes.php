@@ -34,13 +34,9 @@ ORDER BY p.nome
 ";
 
 $stmt = $conexao->prepare($query);
-
 $stmt->bind_param("i", $id_medico);
-
 $stmt->execute();
-
 $resultado = $stmt->get_result();
-
 $pacientes = [];
 
 while ($linha = $resultado->fetch_assoc()) {

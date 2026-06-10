@@ -46,3 +46,14 @@ ALTER TABLE `autorizacoes_medicas` ADD FOREIGN KEY (`paciente_id`) REFERENCES `p
 ALTER TABLE `acompanhante` ADD FOREIGN KEY (`paciente_id`) REFERENCES `paciente` (`id_paciente`);
 
 ALTER TABLE `examen` ADD FOREIGN KEY (`paciente_id`) REFERENCES `paciente` (`id_paciente`);
+
+ALTER TABLE medico ADD COLUMN status_medico ENUM(
+    'ATIVO',
+    'FERIAS',
+    'DESATIVADO'
+) NOT NULL DEFAULT 'ATIVO';
+
+ALTER TABLE medico ADD COLUMN tipo ENUM(
+    'MEDICO',
+    'ADM',
+) NOT NULL DEFAULT 'MEDICO';
