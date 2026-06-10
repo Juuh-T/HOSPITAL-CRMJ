@@ -43,7 +43,7 @@ function js_sair(){
     
 
 
-function js_iniciarPaginaPaciente () {
+document.addEventListener("DOMContentLoaded", function js_iniciarPaginaPaciente () {
     const botaoAdicionar = document.querySelector(".btn-add");
     const listaPacientes = document.querySelector(".lista-pacientes");
     const tituloPaciente = document.querySelector("#tituloPaciente");
@@ -320,6 +320,6 @@ function js_iniciarPaginaPaciente () {
 
     prepararPacientesIniciais();
     selecionarPaciente(pacienteSelecionado);
-};
+});
 
 

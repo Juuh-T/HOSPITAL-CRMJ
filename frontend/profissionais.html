@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <title>HOSPITAL CRMJ - Profissionais</title>
+    <link rel="stylesheet" href="../frontend/css/profissionais.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+</head>
+
+<body>
+
+    <header>
+        <h1>Hospital CRMJ</h1>
+
+        <a href="../frontend/index.html" class="sair">
+            <span>&#8618;</span>
+        </a>
+    </header>
+
+    <main class="container">
+
+        <section class="painel">
+
+            <div class="barra-pesquisa">
+                <i class="bi bi-search lupa"></i>
+                <input type="text" id="pesquisa" placeholder="Pesquisar profissional">
+            </div>
+
+            <div class="conteudo">
+
+                <aside class="filtros">
+                    <h2>Filtros</h2>
+
+                    <label>
+                        <input type="checkbox" class="filtro-status" value="Ativo">
+                        Ativo
+                    </label>
+
+                    <label>
+                        <input type="checkbox" class="filtro-status" value="Férias">
+                        Férias
+                    </label>
+
+                    <label>
+                        <input type="checkbox" class="filtro-status" value="Desativado">
+                        Desativado
+                    </label>
+
+                    <button id="btnExcluir" class="btn-excluir" disabled>
+                        Excluir Profissional
+                    </button>
+
+                    <a href="../frontend/cadastro.html" class="btn-add">
+                        Adicionar Profissional
+                    </a>
+                </aside>
+
+                <section class="lista-profissionais">
+
+                    <div class="cabecalho-lista">
+                        <span>ID</span>
+                        <span>Nome</span>
+                        <span>Data de Admissão</span>
+                        <span>Status</span>
+                    </div>
+
+                    <div class="linhas" id="linhasProfissionais"></div>
+
+                </section>
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <script src="../frontend/js/profissionais.js"></script>
+</body>
+
+</html>

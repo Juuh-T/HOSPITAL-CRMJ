@@ -21,6 +21,7 @@
 
 html,
 body {
+    font-family: 'Montserrat', sans-serif;
     width: 100%;
     min-height: 100%;
     overflow: hidden;
@@ -52,6 +53,7 @@ header h1 {
     font-size: 25px;
     cursor: pointer;
     color: #333;
+    text-decoration: none;
 }
 
 /* CONTAINER GERAL */
@@ -60,7 +62,7 @@ header h1 {
     width: 92vw;
     max-width: 1450px;
     height: calc(100vh - var(--altura-header) - 6vh);
-    margin: 3vh auto;
+    margin: 2vh auto;
     background-color: var(--cor-caixa);
     border-radius: clamp(18px, 1.8vw, 28px);
     padding: clamp(14px, 1.7vw, 25px);

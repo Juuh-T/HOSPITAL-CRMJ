@@ -63,6 +63,7 @@ header h1 {
     width: 100%;
     height: calc(100vh - var(--altura-header));
     display: flex;
+    margin: -1vh auto;
     align-items: center;
     justify-content: center;
 }
@@ -70,21 +71,37 @@ header h1 {
 /* CAIXA EXTERNA */
 
 .card-cadastro {
-    width: 88vw;
+    width: 92vw;
     height: 82vh;
-    background-color: var(--cor-card);
-    border: 24px solid var(--cor-caixa);
-    border-radius: 30px;
+    background-color: var(--cor-caixa);
+    border-radius: 38px;
+    padding: clamp(18px, 2vw, 30px);
     box-shadow: inset 0 0 6px #999;
     display: flex;
-    padding: clamp(25px, 3vw, 45px);
+    position: relative;
+    overflow: hidden;
+}
+
+.card-cadastro::before {
+    content: "";
+    position: absolute;
+    inset: clamp(18px, 2vw, 30px);
+    background-color: var(--cor-card);
+    border-radius: 22px;
+    box-shadow: inset 0 0 4px #aaa;
+    z-index: 0;
+}
+
+.card-cadastro > * {
+    position: relative;
+    z-index: 1;
 }
 
 /* LADO ESQUERDO */
 
 .lado-cadastro {
     flex: 1.8;
-    padding-right: clamp(25px, 3vw, 45px);
+    padding: 55px clamp(35px, 4vw, 70px);
 }
 
 .lado-cadastro h2 {
@@ -203,7 +220,7 @@ hr {
 .divisoria {
     width: 1px;
     background-color: #d2d2d2;
-    margin: 0 clamp(25px, 3vw, 45px);
+    margin: 45px 0;
 }
 
 /* LADO DIREITO */
@@ -213,7 +230,7 @@ hr {
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding-top: 55px;
+    padding: 90px clamp(35px, 4vw, 70px) 55px clamp(35px, 4vw, 70px);
 }
 
 .lado-login h3 {

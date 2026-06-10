@@ -68,7 +68,19 @@ function salvarCadastro() {
     const senha = document.getElementById("senha").value;
     const confirmarSenha = document.getElementById("confirmarSenha").value;
 
-    if (nome === "" || sobrenome === "" || cpf.value === "" || usuario === "" || senha === "" || confirmarSenha === "") {
+    const dataAdmissao = `${diaAdmissao.value}/${mesAdmissao.value}/${anoAdmissao.value}`;
+
+    if (
+        nome === "" ||
+        sobrenome === "" ||
+        cpf.value === "" ||
+        usuario === "" ||
+        senha === "" ||
+        confirmarSenha === "" ||
+        diaAdmissao.value === "" ||
+        mesAdmissao.value === "" ||
+        anoAdmissao.value === ""
+    ) {
         alert("Preencha todos os campos obrigatórios.");
         return;
     }
@@ -83,7 +95,20 @@ function salvarCadastro() {
         return;
     }
 
+    const profissionais = JSON.parse(localStorage.getItem("profissionaisCRMJ")) || [];
+
+    const novoProfissional = {
+        nome: nome + " " + sobrenome,
+        cpf: cpf.value,
+        dataAdmissao: dataAdmissao,
+        status: "Ativo"
+    };
+
+    profissionais.push(novoProfissional);
+
+    localStorage.setItem("profissionaisCRMJ", JSON.stringify(profissionais));
+
     alert("Cadastro realizado com sucesso!");
 
-    window.location.href = "index.html";
+    window.location.href = "profissionais.html";
 }
