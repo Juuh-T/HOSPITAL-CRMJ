@@ -18,16 +18,16 @@
         <h2>Login</h2>
 
         <div class="input-field">
-            <input type="text" required placeholder="Usuário">
+            <input type="text" id="usuario" required placeholder="Usuário"> <!-- Login usuario --> 
         </div>
         <div class="input-field">
-            <input type="password" id="senha" required placeholder="Senha">
+            <input type="password" id="senha" required placeholder="Senha"> <!-- Login senha-->
             <span class="olho-senha" onclick="mostrarSenha()">
                 <i id="iconeOlho" class="bi bi-eye-slash"></i>
             </span>
         </div>
 
-        <button class="btnEntrar" type="submit">Entrar</button>
+        <button class="btnEntrar" onclick="js_fazerLogin()" type="button">Entrar</button> <!-- chama funcao de verificar login js-->
         
         <div class="cadastro">
             <p>Não possui cadastro? <a href="../frontend/cadastro.html" target="_blank" class="btnCadastro">Cadastrar</a></p>

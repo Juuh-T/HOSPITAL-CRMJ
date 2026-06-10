@@ -1,4 +1,49 @@
-document.addEventListener("DOMContentLoaded", function () {
+
+// reconhece a sessao pelo cookie
+window.onload = js_verificarSessao;
+
+function js_verificarSessao(){
+
+    fetch("../backend/verificar_sessao.php")
+
+    .then(function (respostaPhpSessao) 
+    {
+        return respostaPhpSessao.json();
+    })
+
+    .then(function (dadosSessao) 
+    {
+        if (dadosSessao.status === false) 
+        {
+            alert(dadosSessao.mensagem);
+            window.location.href = "index.html";
+        }
+
+    //se tudo estiver ok inicia a pagina
+    js_iniciarPaginaPaciente();
+        
+    });
+}
+
+function js_sair(){
+    fetch("../backend/logout.php")
+
+    .then(function (respLogout){
+        return respLogout.json();
+    })
+
+    .then( function ( dadosLogout ){
+        if ( dadosLogout.status === true ){
+            window.location.href = "index.html"; 
+        }
+    })
+}
+
+
+    
+
+
+function js_iniciarPaginaPaciente () {
     const botaoAdicionar = document.querySelector(".btn-add");
     const listaPacientes = document.querySelector(".lista-pacientes");
     const tituloPaciente = document.querySelector("#tituloPaciente");
@@ -275,4 +320,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
     prepararPacientesIniciais();
     selecionarPaciente(pacienteSelecionado);
-});
+};
+
+

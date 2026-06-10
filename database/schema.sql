@@ -26,6 +26,7 @@ CREATE TABLE `medico` (
   `id_medico` int PRIMARY KEY AUTO_INCREMENT,
   `nome` varchar(255) NOT NULL,
   `crm` varchar(20) UNIQUE NOT NULL,
+  `senha` varchar(255) NOT NULL,
   `termos_aceitos` boolean NOT NULL DEFAULT false,
   `data_aceite_termos` timestamp
 );
