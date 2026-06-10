@@ -11,9 +11,9 @@
 
     <header>
         <h1>Hospital CRMJ</h1>
-        <div class="sair">
-            <a href="#" onclick="js_sair()"> <span class="sair-icon">&#8618</span> </a>
-        </div>
+        <a href="../index.html" class="sair">
+            <span>&#8618;</span>
+        </a>
     </header>
 
     <main class="container">
@@ -27,7 +27,7 @@
             </div>
 
             <div class="painel-lateral">
-                <button class="btn-add" onclick="window.location.href='cadastro_paciente.html'">Adicionar paciente</button>
+                <button class="btn-add" onclick="window.location.href='cadastro-paciente.html'">Adicionar paciente</button>
                 <hr>
                 <div class="lista-pacientes"></div>
                 </div>
@@ -62,6 +62,12 @@
                     <i class="bi bi-speedometer2"></i>
                     <span>Peso:</span>
                     <input type="text" id="pesoPaciente" class="campo-dado" readonly>
+                </p>
+
+                <p class="linha-dado">
+                    <i class="bi bi-gender-ambiguous"></i>
+                    <span>Sexo:</span>
+                    <input type="text" id="sexooPaciente" class="campo-dado" readonly>
                 </p>
 
             </div>

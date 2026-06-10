@@ -1,0 +1,403 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Montserrat', sans-serif;
+}
+
+:root {
+    --cor-fundo: #e9edf5;
+    --cor-header: #d2e8e3;
+    --cor-caixa: #dddddd;
+    --cor-card: #eef2fa;
+    --cor-verde-claro: #cce6df;
+    --cor-verde-medio: #afd6cf;
+    --cor-texto: #28504d;
+    --cor-cinza: #777;
+    --cor-borda: #c8ccd1;
+
+    --altura-header: clamp(45px, 6vh, 60px);
+}
+
+html,
+body {
+    width: 100%;
+    height: 100%;
+}
+
+body {
+    background-color: var(--cor-fundo);
+    color: var(--cor-texto);
+    overflow: hidden;
+}
+
+/* HEADER */
+
+header {
+    height: var(--altura-header);
+    background-color: var(--cor-header);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 30px;
+}
+
+header h1 {
+    font-size: 30px;
+    color: #333;
+    text-shadow: 2px 2px 4px #999;
+}
+
+.sair {
+    font-size: 25px;
+    color: #333;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* CONTAINER */
+
+.container {
+    width: 100%;
+    height: calc(100vh - var(--altura-header));
+    display: flex;
+    margin: -1vh auto;
+    align-items: center;
+    justify-content: center;
+}
+
+/* CAIXA EXTERNA */
+
+.card-cadastro {
+    width: 92vw;
+    height: 82vh;
+    background-color: var(--cor-caixa);
+    border-radius: 38px;
+    padding: clamp(18px, 2vw, 30px);
+    box-shadow: inset 0 0 6px #999;
+    display: flex;
+    position: relative;
+    overflow: hidden;
+}
+
+.card-cadastro::before {
+    content: "";
+    position: absolute;
+    inset: clamp(18px, 2vw, 30px);
+    background-color: var(--cor-card);
+    border-radius: 22px;
+    box-shadow: inset 0 0 4px #aaa;
+    z-index: 0;
+}
+
+.card-cadastro > * {
+    position: relative;
+    z-index: 1;
+}
+
+/* LADO ESQUERDO */
+
+.lado-cadastro {
+    flex: 1.8;
+    padding: 55px clamp(35px, 4vw, 70px);
+}
+
+.lado-cadastro h2 {
+    font-size: clamp(22px, 2vw, 32px);
+    font-weight: 500;
+    margin-bottom: 12px;
+}
+
+hr {
+    border: none;
+    height: 1px;
+    background-color: #d2d2d2;
+    margin-bottom: 30px;
+}
+
+.form-cadastro {
+    width: 100%;
+    max-width: 720px;
+    margin: 0 auto;
+}
+
+/* LINHAS DOS CAMPOS */
+
+.linha-inputs {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 12px;
+}
+
+.grupo-input {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    color: var(--cor-cinza);
+}
+
+.grupo-input label,
+.grupo-genero > label {
+    font-size: 15px;
+    margin-left: 8px;
+    margin-bottom: 5px;
+    color: #8a8a8a;
+}
+
+.grupo-input input {
+    height: 45px;
+    border: 1px solid var(--cor-borda);
+    border-radius: 8px;
+    background-color: transparent;
+    outline: none;
+    padding: 0 12px;
+    font-size: 15px;
+    color: var(--cor-cinza);
+}
+
+.grupo-input input:focus {
+    border-color: #9fc9c1;
+    box-shadow: 0 0 4px #aad7cf;
+}
+
+.cpf {
+    flex: 1.4;
+}
+
+.data-nascimento {
+    flex: 1;
+}
+
+.inputs-data {
+    display: flex;
+    gap: 8px;
+}
+
+.inputs-data input {
+    width: 80px;
+    text-align: center;
+}
+
+/* PESO + GÊNERO NA MESMA LINHA */
+
+.linha-peso-genero {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    margin-bottom: 22px;
+}
+
+.peso {
+    flex: 0.8;
+}
+
+.input-com-unidade {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.input-com-unidade input {
+    width: 100%;
+}
+
+.input-com-unidade span {
+    color: #8a8a8a;
+    font-size: 15px;
+}
+
+/* GÊNERO */
+
+.grupo-genero {
+    flex: 1.2;
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    color: var(--cor-cinza);
+}
+
+.opcoes-genero {
+    height: 45px;
+    display: flex;
+    align-items: center;
+    gap: 25px;
+    margin-left: 8px;
+}
+
+.opcoes-genero label {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    cursor: pointer;
+    color: #8a8a8a;
+    font-size: 15px;
+}
+
+.opcoes-genero input {
+    width: 22px;
+    height: 22px;
+    accent-color: var(--cor-verde-medio);
+}
+
+/* DIVISÓRIA */
+
+.divisoria {
+    width: 1px;
+    background-color: #d2d2d2;
+    margin: 45px 0;
+}
+
+/* LADO DIREITO */
+
+.lado-foto {
+    flex: 0.9;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 25px;
+    padding: 55px clamp(25px, 3vw, 50px);
+}
+
+.fotos-paciente {
+    width: 100%;
+    max-width: 320px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.foto-item {
+    width: 100%;
+    min-height: 95px;
+    border: 2px dashed var(--cor-borda);
+    border-radius: 18px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 12px;
+}
+
+.foto-item input[type="file"] {
+    display: none;
+}
+
+.circulo-foto {
+    width: 65px;
+    height: 65px;
+    min-width: 65px;
+    border-radius: 50%;
+    background-color: #d9d9d9;
+    border: 2px solid var(--cor-borda);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    overflow: hidden;
+    position: relative;
+    transition: 0.2s;
+}
+
+.circulo-foto i {
+    font-size: 25px;
+    color: #7d8b89;
+}
+
+.circulo-foto img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: none;
+}
+
+.foto-item p {
+    color: var(--cor-texto);
+    font-size: 14px;
+    font-weight: 500;
+}
+
+/* BOTÃO */
+
+.btn-salvar {
+    width: 100%;
+    max-width: 320px;
+    min-height: 45px;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 18px;
+    background-color: var(--cor-verde-claro);
+    color: var(--cor-texto);
+    font-size: 24px;
+    line-height: 1;
+    cursor: pointer;
+    box-shadow: 0 4px 5px #aaa;
+    transition: 0.2s;
+}
+
+.btn-salvar:hover {
+    background-color: var(--cor-verde-medio);
+    transform: scale(1.02);
+}
+
+/* RESPONSIVO */
+
+@media (max-width: 1000px) {
+    body {
+        overflow: auto;
+    }
+
+    .container {
+        height: auto;
+        padding: 30px 0;
+    }
+
+    .card-cadastro {
+        width: 90vw;
+        height: auto;
+        flex-direction: column;
+    }
+
+    .lado-cadastro {
+        padding: 45px clamp(25px, 5vw, 50px);
+    }
+
+    .divisoria {
+        width: 100%;
+        height: 1px;
+        margin: 30px 0;
+    }
+
+    .lado-foto {
+        padding-top: 0;
+    }
+}
+
+@media (max-width: 650px) {
+    .linha-inputs,
+    .linha-peso-genero {
+        flex-direction: column;
+    }
+
+    .peso,
+    .grupo-genero {
+        width: 100%;
+    }
+
+    .opcoes-genero {
+        height: auto;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+        margin-top: 8px;
+    }
+
+    .inputs-data input {
+        width: 100%;
+    }
+
+    header h1 {
+        font-size: 24px;
+    }
+}
