@@ -55,6 +55,9 @@ function js_fazerLogin()
 
     // segundo .then usa os dados
 
+    function js_fazerLogin() {
+    window.location.href = "paciente.html";
+}
 
 }
 

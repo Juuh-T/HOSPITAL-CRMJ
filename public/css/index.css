@@ -63,19 +63,30 @@ h2{
 }
 
 .btnEntrar {
+    width: calc(100% - 30px);
+    height: 43px;
+    margin: 5px auto 0 auto;
+
     background-color: var(--cor-botao);
     border-radius: 12px;
     border: none;
+
     cursor: pointer;
     transition: 0.3s ease;
-    padding: 10px 164px;
+
     color: rgb(255, 255, 255);
     font-size: 19px;
     font-weight: 500;
-    box-shadow: -3px 4px 3px  #546d6894;
+    box-shadow: -3px 4px 3px #546d6894;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    text-decoration: none;
 }
 
-.btnEntrar:hover{
+.btnEntrar:hover {
     background-color: var(--cor-botaoClick);
     transition: 0.2s;
     transform: scale(1.02);
@@ -113,6 +124,8 @@ h2{
 .btnCadastro,
 .cadastro {
     color: var(--cor-texto);
+
+    text-decoration: none;
 }
 
 .cadastro {

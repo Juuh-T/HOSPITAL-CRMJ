@@ -13,7 +13,11 @@ if (!isset($_SESSION["id_medico"])) {
     exit;
 }
 
-$id_medico = $_SESSION["id_medico"];
+if ($_SESSION["tipo"] === "ADM" && isset($_SESSION["medico_assumido"])) {
+    $id_medico = $_SESSION["medico_assumido"];
+} else {
+    $id_medico = $_SESSION["id_medico"];
+}
 
 $query = "
 SELECT
