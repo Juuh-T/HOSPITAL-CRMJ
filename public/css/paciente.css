@@ -234,7 +234,6 @@ hr {
 
 #tituloPaciente {
     outline: none;
-    cursor: text;
 }
 
 #tituloPaciente:focus {
@@ -307,7 +306,6 @@ hr {
 
 .campo-dado {
     border: none;
-    border-bottom: 1px solid #cfcfcfa2;
     background: transparent;
     outline: none;
     font-size: 15px;

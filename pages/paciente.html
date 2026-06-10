@@ -22,80 +22,50 @@
             <div class="barra-pesquisa">
                 <i class="bi bi-search lupa"></i>
                 <div class="input-field">
-                    <input type="text" required placeholder="Pesquisar nome do paciente">
+                    <input type="text" id="campoPesquisa" placeholder="Pesquisar nome ou CPF">
                 </div>
             </div>
 
             <div class="painel-lateral">
-                <button class="btn-add">Adicionar paciente</button>
+                <button class="btn-add" onclick="window.location.href='cadastro_paciente.html'">Adicionar paciente</button>
                 <hr>
-                <div class="lista-pacientes">
-                    <div class="paciente">
-                        <div class="paciente-info">
-                            <i class="bi bi-person"></i>
-                            <span>Paciente 1</span>
-                        </div>
-                        <span class="excluir-paciente">&#128465;</span>
-                    </div>
+                <div class="lista-pacientes"></div>
                 </div>
             </div>
         </aside>
 
         <section class="conteudo">
             <div class="cabecalho-paciente">
-                <h2 id="tituloPaciente" contenteditable="true">Paciente 1</h2>
-                <span class="olho" onclick="mudarOlho()">
-                    <i id="iconeOlho" class="bi bi-eye"></i>
-            </span>
+                <h2 id="tituloPaciente"></h2>
             </div>
 
             <div class="dados">
                 <p class="linha-dado">
                     <i class="bi bi-pencil-square"></i>
                     <span>Nome:</span>
-                    <input type="text" class="campo-dado">
+                    <input type="text" id="nomePaciente" class="campo-dado" readonly>
                 </p>
 
                 <p class="linha-dado">
                     <i class="bi bi-person"></i>
                     <span>CPF:</span>
-                    <input type="text" id="cpf" class="campo-dado" maxlength="14">
-                </p>
-
-                <div class="linha-dado">
-                    <i class="bi bi-gender-ambiguous"></i>
-                    <span>Sexo:</span>
-
-                    <div class="select-personalizado">
-                        <div class="select-escolhido" onclick="abrirSexo()"></div>
-
-                        <div class="opcoes-sexo" id="opcoesSexo">
-                            <div onclick="selecionarSexo('Masculino')">Masculino</div>
-                            <div onclick="selecionarSexo('Feminino')">Feminino</div>
-                        </div>
-                    </div>
-                </div>
-
-                <p class="linha-dado">
-                    <i class="bi bi-telephone"></i>
-                    <span>Telefone:</span>
-                    <input type="text" id="telefone" class="campo-dado" maxlength="19">
+                    <input type="text" id="cpf" class="campo-dado" readonly>
                 </p>
 
                 <p class="linha-dado">
-                    <i class="bi bi-cake"></i>
-                    <span>Nascimento:</span>
-                    <input type="text" id="nascimento" class="campo-dado" maxlength="10">
+                    <i class="bi bi-calendar"></i>
+                    <span>Idade:</span>
+                    <input type="text" id="idadePaciente" class="campo-dado" readonly>
                 </p>
+
+                <p class="linha-dado">
+                    <i class="bi bi-speedometer2"></i>
+                    <span>Peso:</span>
+                    <input type="text" id="pesoPaciente" class="campo-dado" readonly>
+                </p>
+
             </div>
-
-            <div class="linha-checklist">
-                <h2>Checklist</h2>
-                <!-- <h2>Score: XXXXXXXX</h2> -->
-            </div>
-
-            <textarea class="checklist" placeholder="Escreva aqui o checklist do paciente..."></textarea>
-
+            
         </section>
 
     </main>
