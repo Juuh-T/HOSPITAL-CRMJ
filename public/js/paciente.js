@@ -4,7 +4,7 @@ window.onload = js_verificarSessao;
 
 function js_verificarSessao(){
 
-    fetch("../backend/verificar_sessao.php")
+    fetch("../api/auth/verificar_sessao.php")
 
     .then(function (respostaPhpSessao) 
     {
@@ -26,7 +26,7 @@ function js_verificarSessao(){
 }
 
 function js_sair(){
-    fetch("../backend/logout.php")
+    fetch("../api/auth/logout.php")
 
     .then(function (respLogout){
         return respLogout.json();

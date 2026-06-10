@@ -28,7 +28,7 @@ function js_fazerLogin()
     }
     
     // comunicacao server pra verificar se os dados procedem
-    fetch ("../backend/login.php", {
+    fetch ("./api/auth/login.php", {
         method: "POST",
         headers: {"Content-Type": "application/json"},
         body: JSON.stringify({
