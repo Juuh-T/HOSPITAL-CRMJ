@@ -1,145 +1,132 @@
 const campoPesquisa = document.getElementById("pesquisa");
 const filtrosStatus = document.querySelectorAll(".filtro-status");
 const linhasProfissionais = document.getElementById("linhasProfissionais");
-const btnExcluir = document.getElementById("btnExcluir");
 
-let profissionais = JSON.parse(localStorage.getItem("profissionaisCRMJ")) || [];
-let profissionalSelecionado = null;
+let profissionais = [];
 
-function salvarProfissionais() {
-    localStorage.setItem("profissionaisCRMJ", JSON.stringify(profissionais));
-}
+fetch("/HOSPITAL-CRMJ/api/auth/sair_modo_medico.php")
+.then(response => response.json())
+.then(dados => {
+    console.log("Modo médico encerrado.");
+})
+.catch(function (erro) {
+    console.error("Erro ao sair do modo médico:", erro);
+});
 
-function atualizarBotaoExcluir() {
-    if (profissionalSelecionado === null) {
-        btnExcluir.disabled = true;
-        btnExcluir.classList.remove("ativo");
-    } else {
-        btnExcluir.disabled = false;
-        btnExcluir.classList.add("ativo");
-    }
-}
+fetch("/HOSPITAL-CRMJ/api/medicos/listar_medicos.php")
+.then(response => response.json())
+.then(dados => {
+    profissionais = dados.medicos;
+    renderizarProfissionais();
+});
 
-function selecionarProfissional(index) {
-    profissionalSelecionado = index;
-
-    const linhas = document.querySelectorAll(".linha-profissional");
-
-    linhas.forEach(function (linha) {
-        linha.classList.remove("selecionado");
+function alterarStatus(idMedico, novoStatus) {
+    fetch("/HOSPITAL-CRMJ/api/medicos/alterar_status.php", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            id_medico: idMedico,
+            status: novoStatus
+        })
+    })
+    .then(response => response.json())
+    .then(dados => {
+        if (dados.status) {
+            const medico = profissionais.find(p => p.id_medico == idMedico);
+            if (medico) {medico.status = novoStatus;}
+            filtrarProfissionais();
+        } else {alert(dados.mensagem);}
+    })
+    .catch(function (erro) {
+        console.error(erro);
+        alert("Erro ao alterar status do profissional.");
     });
-
-    const linhaSelecionada = document.querySelector(`.linha-profissional[data-index="${index}"]`);
-
-    if (linhaSelecionada) {
-        linhaSelecionada.classList.add("selecionado");
-    }
-
-    atualizarBotaoExcluir();
 }
 
-function renderizarProfissionais() {
+function renderizarProfissionais(lista = profissionais) {
     linhasProfissionais.innerHTML = "";
 
-    if (profissionais.length === 0) {
+    if (lista.length === 0) {
         linhasProfissionais.innerHTML = `
             <p class="mensagem-vazia">Nenhum profissional cadastrado.</p>
         `;
-
-        profissionalSelecionado = null;
-        atualizarBotaoExcluir();
         return;
     }
 
-    profissionais.forEach(function (profissional, index) {
+    lista.forEach(function (profissional) {
         const linha = document.createElement("div");
         linha.classList.add("linha-profissional");
-
-        linha.dataset.index = index;
         linha.dataset.nome = profissional.nome.toLowerCase();
-        linha.dataset.status = profissional.status;
-
-        if (profissionalSelecionado === index) {
-            linha.classList.add("selecionado");
-        }
-
+        linha.dataset.status = profissional.status.toLowerCase();
         linha.innerHTML = `
-            <span>${index + 1}</span>
+            <span>${profissional.id_medico}</span>
             <span>${profissional.nome}</span>
-            <span>${profissional.dataAdmissao}</span>
+            <span>${profissional.crm}</span>
 
             <div class="status-dropdown">
                 <div class="status-atual" onclick="toggleStatusMenu(this)">
                     ${profissional.status}
+                    <i class="bi bi-chevron-down"></i>
                 </div>
 
                 <div class="status-opcoes">
-                    <div class="${profissional.status === "Ativo" ? "selecionado" : ""}" onclick="alterarStatus(${index}, 'Ativo')">Ativo</div>
-                    <div class="${profissional.status === "Férias" ? "selecionado" : ""}" onclick="alterarStatus(${index}, 'Férias')">Férias</div>
-                    <div class="${profissional.status === "Desativado" ? "selecionado" : ""}" onclick="alterarStatus(${index}, 'Desativado')">Desativado</div>
+                    <div class="${profissional.status === "ATIVO" ? "selecionado" : ""}"
+                        onclick="alterarStatus(${profissional.id_medico}, 'ATIVO')">
+                        Ativo
+                    </div>
+                    <div class="${profissional.status === "FERIAS" ? "selecionado" : ""}"
+                        onclick="alterarStatus(${profissional.id_medico}, 'FERIAS')">
+                        Férias
+                    </div>
+                    <div class="${profissional.status === "DESATIVADO" ? "selecionado" : ""}"
+                        onclick="alterarStatus(${profissional.id_medico}, 'DESATIVADO')">
+                        Desativado
+                    </div>
                 </div>
             </div>
         `;
 
         linha.addEventListener("click", function (event) {
-            if (event.target.closest(".status-dropdown")) {
-                return;
-            }
-
-            selecionarProfissional(index);
+            if (event.target.closest(".status-dropdown")) {return;}
+            fetch("/HOSPITAL-CRMJ/api/auth/assumir_medico.php", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    id_medico: profissional.id_medico
+                })
+            })
+            .then(response => response.json())
+            .then(dados => {
+                if (dados.status) {window.location.href = "paciente.html";} 
+                else {alert(dados.mensagem);}
+            })
+            .catch(function (erro) {
+                console.error(erro);
+                alert("Erro ao acessar médico.");
+            });
         });
 
         linhasProfissionais.appendChild(linha);
     });
-
-    filtrarProfissionais();
-    atualizarBotaoExcluir();
-}
-
-function excluirProfissionalSelecionado() {
-    if (profissionalSelecionado === null) {
-        return;
-    }
-
-    const confirmar = confirm("Deseja excluir este profissional?");
-
-    if (confirmar === false) {
-        return;
-    }
-
-    profissionais.splice(profissionalSelecionado, 1);
-
-    profissionalSelecionado = null;
-
-    salvarProfissionais();
-    renderizarProfissionais();
 }
 
 function filtrarProfissionais() {
-    const textoPesquisa = campoPesquisa.value.toLowerCase().trim();
-    const linhas = document.querySelectorAll(".linha-profissional");
-
-    const statusSelecionados = [];
-
-    filtrosStatus.forEach(function (filtro) {
-        if (filtro.checked) {
-            statusSelecionados.push(filtro.value);
-        }
+    const textoPesquisa = campoPesquisa.value.toLowerCase();
+    const statusSelecionados = Array.from(filtrosStatus)
+        .filter(filtro => filtro.checked)
+        .map(filtro => filtro.value.toLowerCase());
+    const filtrados = profissionais.filter(function (p) {
+        const correspondePesquisa = p.nome.toLowerCase().includes(textoPesquisa) || p.crm.toLowerCase().includes(textoPesquisa);
+        const correspondeStatus = statusSelecionados.length === 0 || statusSelecionados.includes(p.status.toLowerCase());
+        return correspondePesquisa && correspondeStatus;
     });
 
-    linhas.forEach(function (linha) {
-        const nome = linha.dataset.nome;
-        const status = linha.dataset.status;
+    renderizarProfissionais(filtrados);
 
-        const nomeCombina = nome.includes(textoPesquisa);
-        const statusCombina = statusSelecionados.length === 0 || statusSelecionados.includes(status);
-
-        if (nomeCombina && statusCombina) {
-            linha.style.display = "grid";
-        } else {
-            linha.style.display = "none";
-        }
-    });
 }
 
 function toggleStatusMenu(elemento) {
@@ -168,20 +155,11 @@ function toggleStatusMenu(elemento) {
     }
 }
 
-function alterarStatus(index, novoStatus) {
-    profissionais[index].status = novoStatus;
-
-    salvarProfissionais();
-    renderizarProfissionais();
-}
-
 campoPesquisa.addEventListener("input", filtrarProfissionais);
 
 filtrosStatus.forEach(function (filtro) {
     filtro.addEventListener("change", filtrarProfissionais);
 });
-
-btnExcluir.addEventListener("click", excluirProfissionalSelecionado);
 
 document.addEventListener("click", function (event) {
     if (!event.target.closest(".status-dropdown")) {
@@ -194,5 +172,3 @@ document.addEventListener("click", function (event) {
         });
     }
 });
-
-renderizarProfissionais();

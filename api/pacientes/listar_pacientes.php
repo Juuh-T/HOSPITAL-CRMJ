@@ -13,7 +13,11 @@ if (!isset($_SESSION["id_medico"])) {
     exit;
 }
 
-$id_medico = $_SESSION["id_medico"];
+if ($_SESSION["tipo"] === "ADM" && isset($_SESSION["medico_assumido"])) {
+    $id_medico = $_SESSION["medico_assumido"];
+} else {
+    $id_medico = $_SESSION["id_medico"];
+}
 
 $query = "
 SELECT
@@ -34,13 +38,9 @@ ORDER BY p.nome
 ";
 
 $stmt = $conexao->prepare($query);
-
 $stmt->bind_param("i", $id_medico);
-
 $stmt->execute();
-
 $resultado = $stmt->get_result();
-
 $pacientes = [];
 
 while ($linha = $resultado->fetch_assoc()) {
