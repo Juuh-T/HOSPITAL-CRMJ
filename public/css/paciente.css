@@ -285,6 +285,7 @@ hr {
     color: var(--cor-cinza);
     font-size: 15px;
     line-height: 1.7;
+    overflow-y: auto;
 }
 
 

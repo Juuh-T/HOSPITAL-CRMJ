@@ -70,9 +70,43 @@
                 <p class="linha-dado">
                     <i class="bi bi-gender-ambiguous"></i>
                     <span>Sexo:</span>
-                    <input type="text" id="sexooPaciente" class="campo-dado" readonly>
+                    <input type="text" id="sexoPaciente" class="campo-dado" readonly>
+                </p>
+                <h3>Acompanhante</h3>
+
+                <p class="linha-dado">
+                    <i class="bi bi-person"></i>
+                    <span>Nome:</span>
+                    <input type="text" id="nomeAcompanhante" class="campo-dado" readonly>
                 </p>
 
+                <p class="linha-dado">
+                    <i class="bi bi-card-text"></i>
+                    <span>CPF:</span>
+                    <input type="text" id="cpfAcompanhante" class="campo-dado" readonly>
+                </p>
+
+                <p class="linha-dado">
+                    <i class="bi bi-telephone"></i>
+                    <span>Telefone:</span>
+                    <input type="text" id="telefoneAcompanhante" class="campo-dado" readonly>
+                </p>
+
+                <h3>Checklist</h3>
+                    <textarea
+                        id="checklistPaciente"
+                        class="campo-dado"
+                        rows="10"
+                        readonly>
+                    </textarea>
+
+                <h3>Foto frontal</h3><img id="fotoPaciente" src="" width="200">
+
+                <div class="campo">
+                    <label>Resultado do Score:</label>
+                    <div id="resultadoScore"></div>
+                </div>
+                
             </div>
             
         </section>
