@@ -74,7 +74,7 @@ mysql -u root -p hospital_crmj < database/schema.sql
 |-------|----------|------------------|
 | `public/` | Arquivos estáticos servidos ao cliente | CSS, JS, imagens |
 | `pages/` | Páginas HTML secundárias | HTML |
-| `api/` | Endpoints PHP do backend | PHP |
+| `api/` | Endpoints PHP do backend  | PHP |
 | `database/` | Scripts SQL | SQL |
 | `config/` | Configurações globais | PHP, ENV |
 

@@ -5,7 +5,7 @@
     header("Content-type: application/json; charset=utf-8");
 
     //2. incluir a conexão com o banco
-    require_once("conexao.php");
+    require_once(__DIR__ . "/../config/conexao.php");
 
     //3. ler os dados que vieram do JavaScript
     $resposta = json_decode(file_get_contents("php://input"), true);
