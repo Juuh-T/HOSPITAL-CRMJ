@@ -106,3 +106,30 @@ function js_iniciarPaginaPaciente() {
     });
 
 }
+
+
+// funcao area admin
+function js_irAreaAdmin(){
+
+    
+
+    fetch("../api/auth/verificar_adm.php", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"}
+    })
+        
+
+    .then( function ( respostaPhp ){
+        return respostaPhp.json();
+    })
+
+    .then( function ( dados ){
+        if (dados.status === true){
+            window.location.href = "profissionais.html"
+        }
+
+        else{
+            alert(dados.mensagem);
+        }
+    })
+}

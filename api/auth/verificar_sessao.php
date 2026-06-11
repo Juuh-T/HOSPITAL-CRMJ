@@ -29,11 +29,26 @@ else if ( time() > $_SESSION["expira_em"] ){
 
 //SE PASSOU ENTAO ESTA LOGADO
 //MEDICO LOGADO
-echo json_encode
+//verifica tambem se é medico comum ou medico adm
+else if ( $_SESSION["tipo"] !== "ADM"){
+    echo json_encode
 ([
     "status" => true,
-    "mensagem" => "Usúario autenticado."
+    "administrador" => false,
+    "mensagem" => "Usúario sem privilégios de administrador autenticado."
 ]);
+}
+else if ( $_SESSION["tipo"] === "ADM"){
+    echo json_encode
+([
+    "status" => true,
+    "administrador" => true,
+    "mensagem" => "Admin autenticado.",
+    "nome" => $_SESSION["nome"]
+]);
+}
+
+
 
 
 
