@@ -19,4 +19,14 @@ if (!isset($_SESSION["tipo"]) || $_SESSION["tipo"] !== "ADM") {
     ]);
 
     exit;
+    
+}
+
+else{
+    header("Content-Type: application/json; charset=utf-8");
+    echo json_encode([
+        "status" => true,
+        "mensagem" => "Adm detectado."
+    ]);
+    exit;
 }

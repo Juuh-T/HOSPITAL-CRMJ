@@ -46,7 +46,7 @@ if (!in_array($novo_status, $status_validos)) {
 
 $query = "
     UPDATE medico
-    SET status = ?
+    SET status_medico = ?
     WHERE id_medico = ?
 ";
 

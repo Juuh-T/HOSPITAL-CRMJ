@@ -10,7 +10,8 @@ SELECT
     id_medico,
     nome,
     crm,
-    tipo
+    tipo,
+    status
 
 FROM medico
 
