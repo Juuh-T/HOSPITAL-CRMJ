@@ -401,3 +401,133 @@ hr {
         font-size: 24px;
     }
 }
+/* ---- GRID DE SINTOMAS ---- */
+.divisoria-secao {
+    margin: 30px 0;
+    border: none;
+    border-top: 1px solid #ccc;
+}
+
+.grid-sintomas {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+.sintoma-item {
+    background: #f8f9fa;
+    padding: 12px 15px;
+    border-radius: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid #e0e0e0;
+}
+
+.sintoma-label {
+    font-size: 14px;
+    font-weight: 500;
+    color: #333;
+}
+
+.sintoma-opcoes label {
+    margin-left: 10px;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+/* ---- ÁREA DE CÁLCULO E SCORE ---- */
+.area-calculo {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+}
+
+.btn-calcular {
+    background-color: #17a2b8;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.btn-calcular:hover {
+    background-color: #138496;
+}
+
+.card-resultado {
+    padding: 15px 20px;
+    border-radius: 8px;
+    width: 100%;
+    color: white;
+}
+
+.card-resultado h4 {
+    margin: 0 0 5px 0;
+    font-size: 18px;
+}
+
+.card-resultado p {
+    margin: 0;
+    font-size: 14px;
+}
+
+.risco-alto {
+    background-color: #dc3545;
+    border-left: 5px solid #a71d2a;
+}
+
+.risco-baixo {
+    background-color: #28a745;
+    border-left: 5px solid #1e7e34;
+}
+
+.oculto {
+    display: none !important;
+}
+
+/* ---- FOTOS (Ajuste para caber 4 na mesma linha) ---- */
+.linha-fotos {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.foto-item input[type="file"] {
+    display: none;
+}
+
+.circulo-foto {
+    width: 100px;
+    height: 100px;
+    background: #e9ecef;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    overflow: hidden;
+    position: relative;
+    border: 2px dashed #adb5bd;
+}
+
+.circulo-foto img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.circulo-foto i {
+    font-size: 30px;
+    color: #6c757d;
+}
+
+.grupo-input.menor {
+    flex: 0.5;
+}

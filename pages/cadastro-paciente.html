@@ -28,65 +28,121 @@
 
                 <hr>
 
-                <form class="form-cadastro">
+                <form id="formTriagemPaciente" action="../backend/salvar_triagem.php" method="POST"
+                    enctype="multipart/form-data" class="form-cadastro">
 
                     <div class="linha-inputs">
                         <div class="grupo-input">
-                            <label>Nome</label>
-                            <input type="text" id="nome">
+                            <label>Nome Completo do Paciente</label>
+                            <input type="text" id="nome_paciente" name="nome_paciente" required>
                         </div>
-
-                        <div class="grupo-input sobrenome">
-                            <label>Sobrenome</label>
-                            <input type="text" id="sobrenome">
+                        <div class="grupo-input menor">
+                            <label>Idade</label>
+                            <input type="number" id="idade" name="idade" required>
+                        </div>
+                        <div class="grupo-input menor">
+                            <label>Peso (kg)</label>
+                            <input type="number" step="0.1" id="peso" name="peso" required>
                         </div>
                     </div>
 
                     <div class="linha-inputs">
-                        <div class="grupo-input cpf">
-                            <label>CPF</label>
-                            <input type="text" id="cpf" maxlength="14">
+                        <div class="grupo-input">
+                            <label>CPF do Paciente</label>
+                            <input type="text" id="cpf_paciente" name="cpf_paciente" maxlength="14" required>
                         </div>
-
-                        <div class="grupo-input data-nascimento">
-                            <label>Data de Nascimento</label>
-
-                            <div class="inputs-data">
-                                <input type="text" id="diaNascimento" maxlength="2" placeholder="Dia">
-                                <input type="text" id="mesNascimento" maxlength="2" placeholder="Mês">
-                                <input type="text" id="anoNascimento" maxlength="4" placeholder="Ano">
-                            </div>
+                        <div class="grupo-input">
+                            <label>Sexo Biológico</label>
+                            <select id="sexo" name="sexo" required>
+                                <option value="" disabled selected>Selecione...</option>
+                                <option value="Masculino">Masculino</option>
+                                <option value="Feminino">Feminino</option>
+                            </select>
                         </div>
                     </div>
 
-                    <div class="linha-inputs linha-peso-genero">
+                    <hr class="divisoria-secao">
 
-                        <div class="grupo-input peso">
-                            <label>Peso</label>
+                    <div class="linha-inputs">
+                        <div class="grupo-input">
+                            <label>Nome do Acompanhante / Responsável</label>
+                            <input type="text" id="nome_acompanhante" name="nome_acompanhante" required>
+                        </div>
+                        <div class="grupo-input">
+                            <label>CPF do Acompanhante</label>
+                            <input type="text" id="cpf_acompanhante" name="cpf_acompanhante" maxlength="14" required>
+                        </div>
+                        <div class="grupo-input">
+                            <label>Telefone do Acompanhante</label>
+                            <input type="text" id="telefone_acompanhante" name="telefone_acompanhante" maxlength="15"
+                                placeholder="(00) 00000-0000" required>
+                        </div>
+                    </div>
 
-                            <div class="input-com-unidade">
-                                <input type="text" id="peso" maxlength="5">
-                            </div>
+                    <hr class="divisoria-secao">
+
+                    <h3>Checklist Clínico de Triagem (SXF)</h3>
+                    <div class="grid-sintomas">
+                    </div>
+
+                    <div class="area-calculo">
+                        <button type="button" class="btn-calcular" onclick="calcularScore()">Calcular Prévia do
+                            Score</button>
+                        <div id="resultadoScore" class="card-resultado oculto">
+                            <h4 id="tituloResultado">Resultado</h4>
+                            <p id="textoResultado"></p>
+                        </div>
+                    </div>
+
+                    <hr class="divisoria-secao">
+
+                    <h3>Fotos Clínicas (Limite de 4)</h3>
+                    <div class="linha-fotos">
+
+                        <div class="foto-item">
+                            <label for="fotoFrente" class="circulo-foto">
+                                <img id="preview0" src="" alt="" class="oculto">
+                                <i id="icone0" class="bi bi-camera-fill"></i>
+                            </label>
+                            <p>Rosto Frente</p>
+                            <input type="file" id="fotoFrente" name="fotos_paciente[]" accept="image/*"
+                                onchange="previewFoto(this, 0)">
                         </div>
 
-                        <div class="grupo-genero">
-                            <label>Gênero</label>
+                        <div class="foto-item">
+                            <label for="fotoDireita" class="circulo-foto">
+                                <img id="preview1" src="" alt="" class="oculto">
+                                <i id="icone1" class="bi bi-camera-fill"></i>
+                            </label>
+                            <p>Lado Direito</p>
+                            <input type="file" id="fotoDireita" name="fotos_paciente[]" accept="image/*"
+                                onchange="previewFoto(this, 1)">
+                        </div>
 
-                            <div class="opcoes-genero">
-                                <label>
-                                    <input type="radio" name="genero" value="Masculino">
-                                    <span>Masculino</span>
-                                </label>
+                        <div class="foto-item">
+                            <label for="fotoEsquerda" class="circulo-foto">
+                                <img id="preview2" src="" alt="" class="oculto">
+                                <i id="icone2" class="bi bi-camera-fill"></i>
+                            </label>
+                            <p>Lado Esquerdo</p>
+                            <input type="file" id="fotoEsquerda" name="fotos_paciente[]" accept="image/*"
+                                onchange="previewFoto(this, 2)">
+                        </div>
 
-                                <label>
-                                    <input type="radio" name="genero" value="Feminino">
-                                    <span>Feminino</span>
-                                </label>
-                            </div>
+                        <div class="foto-item">
+                            <label for="fotoExtra" class="circulo-foto">
+                                <img id="preview3" src="" alt="" class="oculto">
+                                <i id="icone3" class="bi bi-camera-fill"></i>
+                            </label>
+                            <p>Corpo Inteiro / Extra</p>
+                            <input type="file" id="fotoExtra" name="fotos_paciente[]" accept="image/*"
+                                onchange="previewFoto(this, 3)">
                         </div>
 
                     </div>
 
+                    <button type="submit" class="btn-salvar" style="margin-top: 30px; width: 100%;">Finalizar e Salvar
+                        Cadastro</button>
 
                 </form>
 
