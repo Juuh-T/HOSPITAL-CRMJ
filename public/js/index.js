@@ -46,7 +46,7 @@ function js_fazerLogin()
     // VERIFICAO LOGIN VALIDO 
     .then(function ( dados ) {
         if ( dados.status === true ){
-            window.location.href = "paciente.html";
+            window.location.href = "pages/paciente.html";
         }
         else{
             alert(dados.mensagem)
@@ -55,10 +55,10 @@ function js_fazerLogin()
 
     // segundo .then usa os dados
 
-    function js_fazerLogin() {
-    window.location.href = "paciente.html";
+    //function js_fazerLogin() {
+    //window.location.href = "paciente.html";
 }
 
-}
+
 
     

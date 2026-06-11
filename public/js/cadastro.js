@@ -1,3 +1,4 @@
+
 const cpf = document.getElementById("cpf");
 
 const diaNascimento = document.getElementById("diaNascimento");
@@ -67,8 +68,10 @@ function salvarCadastro() {
     const usuario = document.getElementById("usuario").value.trim();
     const senha = document.getElementById("senha").value;
     const confirmarSenha = document.getElementById("confirmarSenha").value;
-
     const dataAdmissao = `${diaAdmissao.value}/${mesAdmissao.value}/${anoAdmissao.value}`;
+
+    const data_aceite_termos = `${anoAdmissao.value}-${mesAdmissao.value}-${diaAdmissao.value}`;
+    const nomeCompleto = `${nome} ${sobrenome}`;
 
     if (
         nome === "" ||
@@ -95,20 +98,39 @@ function salvarCadastro() {
         return;
     }
 
-    const profissionais = JSON.parse(localStorage.getItem("profissionaisCRMJ")) || [];
+    //mandar pro cadastrar_medicos as informacoes
+    fetch("../api/medicos/cadastrar_medico.php", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify
+        ({
+            nome: nomeCompleto,
+            crm: usuario,
+            senha: senha, 
+            data_aceite_termos: data_aceite_termos
+        })
+    })
 
-    const novoProfissional = {
-        nome: nome + " " + sobrenome,
-        cpf: cpf.value,
-        dataAdmissao: dataAdmissao,
-        status: "Ativo"
-    };
+    .then ( function ( respostaPhp ){
+        return respostaPhp.json();
 
-    profissionais.push(novoProfissional);
+    })
+    //segudno then recebe dados do return do primeiro
+    .then ( function ( dadosPhp ){
+        if ( dadosPhp.status === false){
+            alert(dadosPhp.mensagem);
+        }
 
-    localStorage.setItem("profissionaisCRMJ", JSON.stringify(profissionais));
+        else if ( dadosPhp.status === true){
+            alert(dadosPhp.mensagem);
+            window.location.href = "profissionais.html";
+        }
+    })
 
-    alert("Cadastro realizado com sucesso!");
+    .catch( function ( erro ){
+        console.error("Erro ao cadastrar.", erro);
+        alert("Erro ao conectar com o servidor.");
+    })
 
-    window.location.href = "profissionais.html";
+    
 }

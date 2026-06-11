@@ -16,11 +16,13 @@ function js_verificarSessao(){
         if (dadosSessao.status === false) 
         {
             alert(dadosSessao.mensagem);
-            window.location.href = "index.html";
+            window.location.href = "../index.html";
+            return;
         }
 
     //se tudo estiver ok inicia a pagina
     js_iniciarPaginaPaciente();
+    return;
         
     });
 }
@@ -34,7 +36,7 @@ function js_sair(){
 
     .then( function ( dadosLogout ){
         if ( dadosLogout.status === true ){
-            window.location.href = "index.html"; 
+            window.location.href = "../index.html"; 
         }
     })
 }
