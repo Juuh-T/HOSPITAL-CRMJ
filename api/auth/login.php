@@ -22,7 +22,7 @@
         exit;
     }
 
-    $query = "SELECT id_medico, nome, crm, tipo, status_medico FROM medico WHERE crm = ? AND senha = ?";
+    $query = "SELECT id_medico, nome, crm, tipo FROM medico WHERE crm = ? AND senha = ?";
     $stmt = $conexao->prepare($query);
     $stmt->bind_param("ss", $crm, $senha);
 
@@ -36,7 +36,9 @@
         $medico = $resultado->fetch_assoc();
 
         //aqui ele verifica se o medico ta desativado, se sim, ele não deixa logar
-        if ($medico["status"] == "DESATIVADO") {
+        //COMENTADO PQ NO BANCO N TEM STATUS MEDICO AINDA deixei assim pra testar
+        /*
+        if ($medico["status_medico"] == "DESATIVADO") {
             echo json_encode([
                 "status" => false,
                 "mensagem" => "Médico desativado."
@@ -44,14 +46,14 @@
             exit;
         }
         //verifica se o medico ta de ferias
-        if ($medico["status"] == "FERIAS") {
+        if ($medico["status_medico"] == "FERIAS") {
             echo json_encode([
                 "status" => false,
                 "mensagem" => "Médico em férias."
             ]);
             exit;
         }
-
+        */
 
         // INICAR SESSAO SERVIDOR PHP //
         //inicia sessao no servidor php pra guardar as informacoes do medico
