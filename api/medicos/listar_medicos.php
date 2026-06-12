@@ -11,7 +11,7 @@ SELECT
     nome,
     crm,
     tipo,
-    status
+    status_medico
 
 FROM medico
 
@@ -19,8 +19,19 @@ ORDER BY nome
 ";
 
 $stmt = $conexao->prepare($query);
+
+if (!$stmt) {
+    echo json_encode([
+        "status" => false,
+        "mensagem" => "Erro ao preparar query.",
+        "erro" => $conexao->error
+    ]);
+    exit;
+}
+
 $stmt->execute();
 $resultado = $stmt->get_result();
+
 $medicos = [];
 
 while ($linha = $resultado->fetch_assoc()) {
@@ -28,7 +39,8 @@ while ($linha = $resultado->fetch_assoc()) {
         "id_medico" => $linha["id_medico"],
         "nome" => $linha["nome"],
         "crm" => $linha["crm"],
-        "tipo" => $linha["tipo"]
+        "tipo" => $linha["tipo"],
+        "status" => $linha["status_medico"]
     ];
 }
 
