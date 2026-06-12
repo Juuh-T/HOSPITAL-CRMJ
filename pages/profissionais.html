@@ -16,8 +16,6 @@
         <a href="../index.html" class="sair">
             <span>&#8618;</span>
         </a>
-
-        
     </header>
 
     <main class="container">
@@ -33,24 +31,29 @@
 
                 <aside class="filtros">
                     <h2>Filtros</h2>
-                        <label class="filtro-item">
-                            <input type="checkbox" class="filtro-status" value="ATIVO">
-                            Ativo
-                        </label>
 
-                        <label class="filtro-item">
-                            <input type="checkbox" class="filtro-status" value="FERIAS">
-                            Férias
-                        </label>
+                    <label class="filtro-item">
+                        <input type="checkbox" class="filtro-status" value="ATIVO">
+                        Ativo
+                    </label>
 
-                        <label class="filtro-item">
-                            <input type="checkbox" class="filtro-status" value="DESATIVADO">
-                            Desativado
-                        </label>
+                    <label class="filtro-item">
+                        <input type="checkbox" class="filtro-status" value="FERIAS">
+                        Férias
+                    </label>
+
+                    <label class="filtro-item">
+                        <input type="checkbox" class="filtro-status" value="DESATIVADO">
+                        Desativado
+                    </label>
 
                     <a href="./cadastro.html" class="btn-add">
                         Adicionar Profissional
                     </a>
+
+                    <button type="button" class="btn-pesquisar" id="btnPesquisar">
+                        Pesquisar
+                    </button>
                 </aside>
 
                 <section class="lista-profissionais">
@@ -72,7 +75,7 @@
 
     </main>
 
-    <script src="../public/js/profissionais.js"></script>
+    <script src="../public/js/profissionais.js" defer></script>
 </body>
 
 </html>

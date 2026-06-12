@@ -22,7 +22,7 @@
         exit;
     }
 
-    $query = "SELECT id_medico, nome, crm, tipo FROM medico WHERE crm = ? AND senha = ?";
+    $query = "SELECT id_medico, nome, crm, status_medico ,tipo FROM medico WHERE crm = ? AND senha = ?";
     $stmt = $conexao->prepare($query);
     $stmt->bind_param("ss", $crm, $senha);
 

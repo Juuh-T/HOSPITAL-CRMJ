@@ -126,6 +126,29 @@ header h1 {
     color: var(--cor-cinza);
 }
 
+.btn-pesquisar {
+    width: 100%;
+    max-width: 300px;
+    height: 50px;
+    border: none;
+    border-radius: 15px;
+    background-color: var(--cor-verde-claro);
+    color: var(--cor-texto);
+    font-size: 22px;
+    cursor: pointer;
+    box-shadow: 0 4px 5px #aaa;
+    margin-top: 12px;
+    transition: 0.2s;
+}
+
+.btn-pesquisar:hover {
+    background-color: #c8dfda;
+}
+
+.btn-pesquisar:active {
+    transform: scale(0.98);
+}
+
 /* CARD INTERNO */
 
 .conteudo {
@@ -317,6 +340,7 @@ header h1 {
 /* RESPONSIVO */
 
 @media (max-width: 900px) {
+
     html,
     body {
         overflow: auto;
@@ -343,7 +367,7 @@ header h1 {
     }
 
     .btn-add {
-    margin-top: 0;
+        margin-top: 0;
     }
 
     .cabecalho-lista,

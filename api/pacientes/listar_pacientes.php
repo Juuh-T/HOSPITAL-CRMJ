@@ -66,40 +66,8 @@ $stmt = $conexao->prepare($query);
 $stmt->bind_param("i", $id_medico);
 $stmt->execute();
 $resultado = $stmt->get_result();
-$pacientes[] = [
-    
-    "id_paciente" => $linha["id_paciente"],
-    "nome" => $linha["nome"],
-    "idade" => $linha["idade"],
-    "peso" => $linha["peso"],
-    "cpf_paciente" => $linha["cpf_paciente"],
 
-    "acompanhante" => [
-        "nome" => $linha["nome_acompanhante"],
-        "cpf" => $linha["cpf_acompanhante"],
-        "telefone" => $linha["telefone"]
-    ],
-
-    "checklist" => [
-
-        "deficiencia_intelectual" => $linha["sintoma_deficiencia_intelectual"],
-        "face_alongada_orelhas" => $linha["sintoma_face_alongada_orelhas"],
-        "macroorquidismo" => $linha["sintoma_macroorquidismo"],
-        "hipermobilidade_articular" => $linha["sintoma_hipermobilidade_articular"],
-        "dificuldade_aprendizagem" => $linha["sintoma_dificuldade_aprendizagem"],
-        "deficit_atencao" => $linha["sintoma_deficit_atencao"],
-        "movimentos_repetitivos" => $linha["sintoma_movimentos_repetitivos"],
-        "atraso_fala" => $linha["sintoma_atraso_fala"],
-        "hiperatividade" => $linha["sintoma_hiperatividade"],
-        "evita_contato_visual" => $linha["sintoma_evita_contato_visual"],
-        "evita_contato_fisico" => $linha["sintoma_evita_contato_fisico"],
-        "agressividade" => $linha["sintoma_agressividade"]
-
-    ],
-
-    "foto" => $linha["foto_paciente_1"]
-
-];
+$pacientes = [];
 
 while ($linha = $resultado->fetch_assoc()) {
 
@@ -108,9 +76,40 @@ while ($linha = $resultado->fetch_assoc()) {
         "nome" => $linha["nome"],
         "idade" => $linha["idade"],
         "peso" => $linha["peso"],
-        "cpf_paciente" => $linha["cpf_paciente"]
+        "cpf_paciente" => $linha["cpf_paciente"],
+
+        "acompanhante" => [
+            "nome" => $linha["nome_acompanhante"],
+            "cpf" => $linha["cpf_acompanhante"],
+            "telefone" => $linha["telefone"]
+        ],
+
+        "checklist" => [
+            "deficiencia_intelectual" => $linha["sintoma_deficiencia_intelectual"],
+            "face_alongada_orelhas" => $linha["sintoma_face_alongada_orelhas"],
+            "macroorquidismo" => $linha["sintoma_macroorquidismo"],
+            "hipermobilidade_articular" => $linha["sintoma_hipermobilidade_articular"],
+            "dificuldade_aprendizagem" => $linha["sintoma_dificuldade_aprendizagem"],
+            "deficit_atencao" => $linha["sintoma_deficit_atencao"],
+            "movimentos_repetitivos" => $linha["sintoma_movimentos_repetitivos"],
+            "atraso_fala" => $linha["sintoma_atraso_fala"],
+            "hiperatividade" => $linha["sintoma_hiperatividade"],
+            "evita_contato_visual" => $linha["sintoma_evita_contato_visual"],
+            "evita_contato_fisico" => $linha["sintoma_evita_contato_fisico"],
+            "agressividade" => $linha["sintoma_agressividade"]
+        ],
+
+        "foto" => $linha["foto_paciente_1"]
     ];
 }
+
+echo json_encode([
+    "status" => true,
+    "id_medico_usado" => $id_medico,
+    "quantidade_linhas" => $resultado->num_rows,
+    "pacientes" => $pacientes
+]);
+exit;
 
 echo json_encode([
     "status" => true,
