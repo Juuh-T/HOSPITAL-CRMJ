@@ -225,7 +225,7 @@ hr {
 .cabecalho-tabela {
     width: 100%;
     display: grid;
-    grid-template-columns: 1fr 1.25fr 1.25fr 1.35fr 1.25fr;
+    grid-template-columns: 1fr 1.25fr 1.25fr 1.35fr 0.7fr 0.6fr;
     align-items: center;
     padding: 0 20px 14px;
     border-bottom: 1px solid #d2d2d2;
@@ -244,7 +244,7 @@ hr {
     background-color: var(--cor-verde-claro);
     border-radius: 18px;
     display: grid;
-    grid-template-columns: 1fr 1.25fr 1.25fr 1.35fr 1.25fr;
+    grid-template-columns: 1fr 1.25fr 1.25fr 1.35fr 0.7fr 0.6fr;
     align-items: center;
     padding: 0 22px;
     box-shadow: 0 4px 5px #aaa;
@@ -392,7 +392,7 @@ hr {
     }
 
     .linha-resultado span:nth-child(5)::before {
-        content: "Resultado: ";
+        content: "Score: ";
     }
 }
 
