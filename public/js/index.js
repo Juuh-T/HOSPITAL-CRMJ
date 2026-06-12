@@ -52,6 +52,10 @@ function js_fazerLogin()
             alert(dados.mensagem)
         }
     })
+    .catch(function (erro) {
+        console.error("Erro ao fazer login:", erro);
+        alert("Erro ao conectar com o servidor. Verifique se o Apache e o MySQL estao ligados no XAMPP.");
+    })
 
     // segundo .then usa os dados
 

@@ -280,35 +280,44 @@ function salvarCadastro() {
         return;
     }
 
-    const pacientes = JSON.parse(localStorage.getItem("pacientesCRMJ")) || [];
+    const formData = new FormData();
 
-    const novoPaciente = {
-        nome: nomePaciente.value.trim(),
-        idade: idadePaciente.value.trim(),
-        peso: pesoPaciente.value.trim(),
-        cpf: cpfPaciente.value.trim(),
-        genero: generoSelecionado.value,
+    formData.append("nome_paciente", nomePaciente.value.trim());
+    formData.append("idade", idadePaciente.value.trim());
+    formData.append("peso", pesoPaciente.value.trim());
+    formData.append("cpf_paciente", cpfPaciente.value.trim());
+    formData.append("sexo", generoSelecionado.value);
+    formData.append("nome_acompanhante", nomeAcompanhante.value.trim());
+    formData.append("cpf_acompanhante", cpfAcompanhante.value.trim());
+    formData.append("telefone_acompanhante", telefoneAcompanhante.value.trim());
 
-        acompanhante: {
-            nome: nomeAcompanhante.value.trim(),
-            cpf: cpfAcompanhante.value.trim(),
-            telefone: telefoneAcompanhante.value.trim()
-        },
+    sintomasSXF.forEach(function (sintoma) {
+        const selecionado = document.querySelector(`input[name="${sintoma.id}"]:checked`);
+        formData.append(sintoma.id, selecionado ? selecionado.value : "0");
+    });
 
-        fotos: {
-            frente: fotosPaciente.frente,
-            direita: fotosPaciente.direita,
-            esquerda: fotosPaciente.esquerda
-        },
+    formData.append("fotoFrente", document.getElementById("fotoFrente").files[0]);
+    formData.append("fotoDireita", document.getElementById("fotoDireita").files[0]);
+    formData.append("fotoEsquerda", document.getElementById("fotoEsquerda").files[0]);
 
-        status: "Ativo"
-    };
+    fetch("../api/config/salvar_triagem.php", {
+        method: "POST",
+        body: formData
+    })
+        .then(function (respostaPhp) {
+            return respostaPhp.json();
+        })
+        .then(function (dados) {
+            if (dados.status === true) {
+                alert(dados.mensagem);
+                window.location.href = "paciente.html";
+                return;
+            }
 
-    pacientes.push(novoPaciente);
-
-    localStorage.setItem("pacientesCRMJ", JSON.stringify(pacientes));
-
-    alert("Paciente cadastrado com sucesso!");
-
-    window.location.href = "paciente.html";
+            alert(dados.mensagem);
+        })
+        .catch(function (erro) {
+            console.error("Erro ao cadastrar paciente:", erro);
+            alert("Erro ao conectar com o servidor.");
+        });
 }

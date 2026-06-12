@@ -39,7 +39,7 @@ session_destroy();
 exit;
 }
 
-if ( $_SESSION["tipo"] !== "admin"){
+if ( $_SESSION["tipo"] !== "ADM"){
     echo json_encode
 ([
     "status" => false,

@@ -3,6 +3,7 @@ CREATE TABLE `paciente` (
   `nome` varchar(255) NOT NULL,
   `idade` int,
   `peso` double,
+  `sexo` ENUM('Masculino', 'Feminino') NOT NULL,
   `cpf_paciente` varchar(11) UNIQUE NOT NULL
 );
 
