@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HOSPITAL CRMJ - Resultados</title>
+
+    <link rel="stylesheet" href="../public/css/relatorio.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+</head>
+<body>
+
+    <header>
+        <h1>Hospital</h1>
+
+        <a href="paciente.html">
+            <span>&#8618;</span>
+        </a>
+    </header>
+
+    <main class="container">
+
+        <aside class="sidebar">
+
+            <div class="cabecalho-filtros">
+                <h2>Filtros</h2>
+            </div>
+
+            <hr>
+
+            <form class="form-filtros">
+
+                <div class="grupo-filtro">
+                    <label for="pesquisaPaciente">Nome ou CPF do paciente:</label>
+                    <input type="text" id="pesquisaPaciente" name="pesquisaPaciente">
+                </div>
+
+                <div class="grupo-filtro">
+                    <label for="nomeMedico">Nome do médico:</label>
+                    <input type="text" id="nomeMedico" name="nomeMedico">
+                </div>
+
+                <div class="grupo-filtro">
+                    <label>Data inicial:</label>
+
+                    <div class="campos-data">
+                        <input type="text" id="diaInicio" name="diaInicio" placeholder="Dia" maxlength="2">
+                        <input type="text" id="mesInicio" name="mesInicio" placeholder="Mês" maxlength="2">
+                        <input type="text" id="anoInicio" name="anoInicio" placeholder="Ano" maxlength="4">
+                    </div>
+                </div>
+
+                <div class="grupo-filtro">
+                    <label>Data final:</label>
+
+                    <div class="campos-data">
+                        <input type="text" id="diaFinal" name="diaFinal" placeholder="Dia" maxlength="2">
+                        <input type="text" id="mesFinal" name="mesFinal" placeholder="Mês" maxlength="2">
+                        <input type="text" id="anoFinal" name="anoFinal" placeholder="Ano" maxlength="4">
+                    </div>
+                </div>
+
+                <button
+                    type="button"
+                    class="btn-pesquisar"
+                    onclick="js_gerarRelatorio()">
+                    Pesquisar
+                </button>
+
+            </form>
+
+        </aside>
+
+        <section class="conteudo">
+
+            <div class="tabela-resultados">
+
+                <div class="cabecalho-tabela">
+                    <span>Data</span>
+                    <span>Médico</span>
+                    <span>Paciente</span>
+                    <span>CPF do paciente</span>
+                    <span>PDF</span>
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <script src="../public/js/relatorio.js"></script>
+</body>
+</html>
