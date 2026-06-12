@@ -23,21 +23,25 @@
 
 body {
     font-family: 'Montserrat', sans-serif;
-    display: flex;
-    align-items: left;
-    justify-content: left;
     min-height: 100vh;
     width: 100%;
-    background-color:var(--cor-fundo);
-    padding: 0 10px;
-    position: relative;
+    background-color: var(--cor-fundo);
     color: #000000;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: clamp(40px, 6vw, 90px);
+
+    padding: 30px;
+    overflow: hidden;
 }
 
 
 .wrapper {
-    width: 500px;
-    margin: 30px;
+    width: clamp(380px, 34vw, 500px);
+    height: clamp(520px, 82vh, 760px);
+
     border-radius: 30px;
     padding: 30px;
     text-align: center;
@@ -45,7 +49,14 @@ body {
     background-color: var(--cor-card);
     backdrop-filter: blur(9px);
     -webkit-backdrop-filter: blur(9px);
-    box-shadow: -6px 6px 2px  #546d682f;
+    box-shadow: -6px 6px 2px #546d682f;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+
+    padding-top: 60px;
+    margin: 0;
 }
 
 h1{
@@ -65,7 +76,7 @@ h2{
 .btnEntrar {
     width: calc(100% - 30px);
     height: 43px;
-    margin: 5px auto 0 auto;
+    margin: 25px auto 0 auto;
 
     background-color: var(--cor-botao);
     border-radius: 12px;
@@ -94,7 +105,7 @@ h2{
 
 .input-field {
     position: relative;
-    margin: 15px;
+    margin: 8px 15px;
 }
 
 .input-field label {
@@ -121,22 +132,14 @@ h2{
     box-shadow: -3px 4px 3px  #546d6862;
 }
 
-.btnCadastro,
-.cadastro {
-    color: var(--cor-texto);
-
-    text-decoration: none;
-}
-
-.cadastro {
-    margin-top: 10px;
-}
 
 .imagem-login {
-    width: 720px;
-    height: 600px;
-    margin-left: 40px;
-    margin-top: 10px;
+    width: clamp(420px, 48vw, 780px);
+    height: auto;
+    max-height: 82vh;
+    object-fit: contain;
+
+    margin: 0;
 }
 
 .olho-senha {
@@ -151,4 +154,37 @@ h2{
 
 .input-field input {
     padding-right: 45px;
+}
+
+@media (max-width: 900px) {
+    body {
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .imagem-login {
+        width: 85vw;
+        margin-left: 0;
+        margin-top: 20px;
+    }
+}
+
+@media (max-width: 950px) {
+    body {
+        flex-direction: column;
+        overflow: auto;
+        padding: 25px;
+    }
+
+    .wrapper {
+        width: 90vw;
+        height: auto;
+        min-height: 500px;
+    }
+
+    .imagem-login {
+        width: 85vw;
+        max-height: none;
+    }
 }

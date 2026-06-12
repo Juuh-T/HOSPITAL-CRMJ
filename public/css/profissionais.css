@@ -51,9 +51,26 @@ header h1 {
 }
 
 .sair {
-    font-size: 25px;
-    color: #333;
+    width: 45px;
+    height: 45px;
     text-decoration: none;
+    cursor: pointer;
+    color: #333;
+
+    display: flex;
+    align-items: center;
+    font-size: 25px;
+    justify-content: center;
+
+    transition: 0.2s;
+}
+
+.sair:hover {
+    transform: scale(1.08);
+}
+
+.sair:hover .icone-sair {
+    stroke: var(--cor-texto);
 }
 
 /* CONTAINER GERAL */

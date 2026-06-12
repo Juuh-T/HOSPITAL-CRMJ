@@ -24,13 +24,14 @@
 html,
 body {
     width: 100%;
-    height: 100%;
+    min-height: 100%;
 }
 
 body {
     background-color: var(--cor-fundo);
     color: var(--cor-texto);
-    overflow: hidden;
+    overflow-y: auto;
+    overflow-x: hidden;
 }
 
 /* HEADER */
@@ -51,35 +52,53 @@ header h1 {
 }
 
 .sair {
-    font-size: 25px;
-    color: #333;
+    width: 45px;
+    height: 45px;
     text-decoration: none;
     cursor: pointer;
+    color: #333;
+
+    display: flex;
+    align-items: center;
+    font-size: 25px;
+    justify-content: center;
+
+    transition: 0.2s;
+}
+
+.sair:hover {
+    transform: scale(1.08);
+}
+
+.sair:hover .icone-sair {
+    stroke: var(--cor-texto);
 }
 
 /* CONTAINER */
 
 .container {
     width: 100%;
-    height: calc(100vh - var(--altura-header));
+    min-height: calc(100vh - var(--altura-header));
     display: flex;
-    margin: -1vh auto;
-    align-items: center;
+    margin: 0 auto;
+    align-items: flex-start;
     justify-content: center;
+    padding: 30px 0;
 }
 
 /* CAIXA EXTERNA */
 
 .card-cadastro {
     width: 92vw;
-    height: 82vh;
+    min-height: 82vh;
+    height: auto;
     background-color: var(--cor-caixa);
     border-radius: 38px;
     padding: clamp(18px, 2vw, 30px);
     box-shadow: inset 0 0 6px #999;
     display: flex;
     position: relative;
-    overflow: hidden;
+    overflow: visible;
 }
 
 .card-cadastro::before {
@@ -97,10 +116,10 @@ header h1 {
     z-index: 1;
 }
 
-/* LADO ESQUERDO */
+/* LADO CADASTRO */
 
 .lado-cadastro {
-    flex: 1.8;
+    width: 100%;
     padding: 55px clamp(35px, 4vw, 70px);
 }
 
@@ -119,11 +138,45 @@ hr {
 
 .form-cadastro {
     width: 100%;
-    max-width: 720px;
-    margin: 0 auto;
+    max-width: none;
+    margin: 0;
+}
+
+.form-cadastro > h4 {
+    font-size: clamp(22px, 2vw, 32px);
+    font-weight: 500;
+    color: var(--cor-texto);
+    text-align: left;
+    margin-top: 10px;
+    margin-bottom: 22px;
+}
+
+/* ÁREA DO FORMULÁRIO + FOTOS */
+
+.area-topo-cadastro {
+    width: 100%;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 280px;
+    gap: 35px;
+    align-items: flex-start;
+}
+
+.campos-paciente {
+    width: 100%;
 }
 
 /* LINHAS DOS CAMPOS */
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+input[type="number"] {
+    appearance: textfield;
+    -moz-appearance: textfield;
+}
 
 .linha-inputs {
     display: flex;
@@ -136,6 +189,10 @@ hr {
     display: flex;
     flex-direction: column;
     color: var(--cor-cinza);
+}
+
+.grupo-input.menor {
+    flex: 0.45;
 }
 
 .grupo-input label,
@@ -180,34 +237,6 @@ hr {
     text-align: center;
 }
 
-/* PESO + GÊNERO NA MESMA LINHA */
-
-.linha-peso-genero {
-    display: flex;
-    align-items: flex-start;
-    gap: 16px;
-    margin-bottom: 22px;
-}
-
-.peso {
-    flex: 0.8;
-}
-
-.input-com-unidade {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-}
-
-.input-com-unidade input {
-    width: 100%;
-}
-
-.input-com-unidade span {
-    color: #8a8a8a;
-    font-size: 15px;
-}
-
 /* GÊNERO */
 
 .grupo-genero {
@@ -226,6 +255,13 @@ hr {
     margin-left: 8px;
 }
 
+.grupo-genero > label {
+    font-size: 15px;
+    margin: 15px 0 0 0;
+    color: #8a8a8a;
+    white-space: nowrap;
+}
+
 .opcoes-genero label {
     display: flex;
     align-items: center;
@@ -241,32 +277,18 @@ hr {
     accent-color: var(--cor-verde-medio);
 }
 
-/* DIVISÓRIA */
 
-.divisoria {
-    width: 1px;
-    background-color: #d2d2d2;
-    margin: 45px 0;
-}
 
-/* LADO DIREITO */
+/* FOTOS AO LADO DOS DADOS */
 
-.lado-foto {
-    flex: 0.9;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 25px;
-    padding: 55px clamp(25px, 3vw, 50px);
-}
+
 
 .fotos-paciente {
     width: 100%;
-    max-width: 320px;
     display: flex;
     flex-direction: column;
     gap: 14px;
+    margin-top: 5px;
 }
 
 .foto-item {
@@ -278,6 +300,7 @@ hr {
     align-items: center;
     gap: 15px;
     padding: 12px;
+    background-color: transparent;
 }
 
 .foto-item input[type="file"] {
@@ -318,126 +341,75 @@ hr {
     font-weight: 500;
 }
 
-/* BOTÃO */
+/* DIVISÓRIA DAS SEÇÕES */
 
-.btn-salvar {
-    width: 100%;
-    max-width: 320px;
-    min-height: 45px;
-    padding: 12px 20px;
-    border: none;
-    border-radius: 18px;
-    background-color: var(--cor-verde-claro);
-    color: var(--cor-texto);
-    font-size: 24px;
-    line-height: 1;
-    cursor: pointer;
-    box-shadow: 0 4px 5px #aaa;
-    transition: 0.2s;
-}
-
-.btn-salvar:hover {
-    background-color: var(--cor-verde-medio);
-    transform: scale(1.02);
-}
-
-/* RESPONSIVO */
-
-@media (max-width: 1000px) {
-    body {
-        overflow: auto;
-    }
-
-    .container {
-        height: auto;
-        padding: 30px 0;
-    }
-
-    .card-cadastro {
-        width: 90vw;
-        height: auto;
-        flex-direction: column;
-    }
-
-    .lado-cadastro {
-        padding: 45px clamp(25px, 5vw, 50px);
-    }
-
-    .divisoria {
-        width: 100%;
-        height: 1px;
-        margin: 30px 0;
-    }
-
-    .lado-foto {
-        padding-top: 0;
-    }
-}
-
-@media (max-width: 650px) {
-    .linha-inputs,
-    .linha-peso-genero {
-        flex-direction: column;
-    }
-
-    .peso,
-    .grupo-genero {
-        width: 100%;
-    }
-
-    .opcoes-genero {
-        height: auto;
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 10px;
-        margin-top: 8px;
-    }
-
-    .inputs-data input {
-        width: 100%;
-    }
-
-    header h1 {
-        font-size: 24px;
-    }
-}
-/* ---- GRID DE SINTOMAS ---- */
 .divisoria-secao {
     margin: 30px 0;
     border: none;
-    border-top: 1px solid #ccc;
+    border-top: 1px solid #d2d2d2;
+    height: 0;
 }
+
+/* GRID DE SINTOMAS */
 
 .grid-sintomas {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 15px;
-    margin-bottom: 25px;
+    grid-template-columns: repeat(3, minmax(280px, 1fr));
+    gap: 18px 18px;
+    margin-top: 15px;
+    margin-bottom: 30px;
 }
 
 .sintoma-item {
-    background: #f8f9fa;
-    padding: 12px 15px;
-    border-radius: 8px;
-    display: flex;
-    justify-content: space-between;
+    min-height: 80px;
+    background-color: var(--cor-verde-claro);
+    border-radius: 14px;
+    padding: 14px 16px;
+
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
     align-items: center;
-    border: 1px solid #e0e0e0;
+    gap: 12px;
+
+    box-shadow: 0 4px 6px #bbb;
 }
 
 .sintoma-label {
-    font-size: 14px;
+    font-size: 15px;
     font-weight: 500;
-    color: #333;
+    line-height: 1.25;
+    color: var(--cor-texto);
+    word-break: normal;
+}
+
+.sintoma-opcoes {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 12px;
+    flex-shrink: 0;
 }
 
 .sintoma-opcoes label {
-    margin-left: 10px;
-    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin: 0;
+    font-size: 15px;
+    color: var(--cor-texto);
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+.sintoma-opcoes input {
+    width: 21px;
+    height: 21px;
+    accent-color: var(--cor-texto);
     cursor: pointer;
 }
 
-/* ---- ÁREA DE CÁLCULO E SCORE ---- */
+/* ÁREA DE CÁLCULO E SCORE */
+
 .area-calculo {
     display: flex;
     flex-direction: column;
@@ -446,18 +418,20 @@ hr {
 }
 
 .btn-calcular {
-    background-color: #17a2b8;
-    color: white;
+    background-color: var(--cor-verde-claro);
+    color: var(--cor-texto);
+    box-shadow: 0 4px 5px #aaa;
     border: none;
     padding: 10px 20px;
-    border-radius: 6px;
+    border-radius: 18px;
     cursor: pointer;
-    font-weight: bold;
+    font-size: 20px;
     transition: 0.3s;
 }
 
 .btn-calcular:hover {
-    background-color: #138496;
+    background-color: var(--cor-verde-medio);
+    transform: scale(1.02);
 }
 
 .card-resultado {
@@ -491,43 +465,123 @@ hr {
     display: none !important;
 }
 
-/* ---- FOTOS (Ajuste para caber 4 na mesma linha) ---- */
-.linha-fotos {
-    display: flex;
-    justify-content: space-between;
-    gap: 10px;
-    flex-wrap: wrap;
-}
+/* BOTÃO SALVAR */
 
-.foto-item input[type="file"] {
-    display: none;
-}
-
-.circulo-foto {
-    width: 100px;
-    height: 100px;
-    background: #e9ecef;
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-    overflow: hidden;
-    position: relative;
-    border: 2px dashed #adb5bd;
-}
-
-.circulo-foto img {
+.btn-salvar {
     width: 100%;
-    height: 100%;
-    object-fit: cover;
+    max-width: 320px;
+    min-height: 45px;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 18px;
+    background-color: var(--cor-verde-claro);
+    color: var(--cor-texto);
+    font-size: 24px;
+    line-height: 1;
+    cursor: pointer;
+    box-shadow: 0 4px 5px #aaa;
+    transition: 0.2s;
+    display: block;
+    margin: 25px 0 0 auto;
 }
 
-.circulo-foto i {
-    font-size: 30px;
-    color: #6c757d;
+.btn-salvar:hover {
+    background-color: var(--cor-verde-medio);
+    transform: scale(1.02);
 }
 
-.grupo-input.menor {
-    flex: 0.5;
+/* RESPONSIVO */
+
+@media (max-width: 1100px) {
+    .grid-sintomas {
+        grid-template-columns: repeat(2, minmax(260px, 1fr));
+    }
+}
+
+@media (max-width: 700px) {
+    .grid-sintomas {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 1000px) {
+    body {
+        overflow: auto;
+    }
+
+    .container {
+        height: auto;
+        padding: 30px 0;
+    }
+
+    .card-cadastro {
+        width: 90vw;
+        height: auto;
+        flex-direction: column;
+    }
+
+    .lado-cadastro {
+        padding: 45px clamp(25px, 5vw, 50px);
+    }
+
+    .area-topo-cadastro {
+        grid-template-columns: 1fr;
+    }
+
+    .fotos-paciente {
+        max-width: 100%;
+    }
+}
+
+@media (max-width: 900px) {
+    .grid-sintomas {
+        grid-template-columns: 1fr;
+    }
+
+    .sintoma-item {
+        grid-template-columns: minmax(0, 1fr) auto;
+    }
+}
+
+@media (max-width: 650px) {
+    .linha-inputs {
+        flex-direction: column;
+    }
+
+    .grupo-input.menor,
+    .grupo-genero {
+        width: 100%;
+        flex: 1;
+    }
+
+    .opcoes-genero {
+        height: auto;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+        margin-top: 8px;
+    }
+
+    .inputs-data input {
+        width: 100%;
+    }
+
+    .btn-salvar {
+        max-width: 100%;
+    }
+
+    header h1 {
+        font-size: 24px;
+    }
+}
+
+@media (max-width: 500px) {
+    .sintoma-item {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+
+    .sintoma-opcoes {
+        justify-content: flex-start;
+    }
 }

@@ -34,6 +34,11 @@ body {
     background-color: var(--cor-fundo);
     color: var(--cor-texto);
 }
+header h1 {
+    font-size: 30px;
+    color: #333;
+    text-shadow: 2px 2px 4px #999;
+}
 
 header {
     height: var(--altura-header);
@@ -44,20 +49,89 @@ header {
     padding: 30px;
 }
 
-header h1 {
-    font-size: 30px;
-    color: #333;
-    text-shadow: 2px 2px 4px #999;
+.acoes-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
 }
 
-.sair,
-.sair-icon {
-    font-size: 25px;
+/* BOTÃO RELATÓRIO */
+
+.btn-relatorio {
+    width: 100px;
+    height: clamp(40px, 5vh, 52px);
+    border: none;
+    border-radius: 13px;
+    background-color: var(--cor-verde-claro);
+    color: var(--cor-texto);
+    font-size: 15px;
+    cursor: pointer;
+    box-shadow: 0 2px 5px #aaa;
+    transition: 0.2s;
+}
+
+.btn-relatorio:hover {
+    background-color: var(--cor-verde-medio);
+    transform: scale(1.02);
+}
+
+/* BOTÃO ADMIN */
+
+.btn-admin {
+    width: 100px;
+    height: clamp(40px, 5vh, 52px);
+    border: none;
+    border-radius: 13px;
+    background-color: var(--cor-verde-claro);
+    color: var(--cor-texto);
+    font-size: 15px;
+    cursor: pointer;
+    box-shadow: 0 2px 5px #aaa;
+    transition: 0.2s;
+}
+
+.btn-admin:hover {
+    background-color: var(--cor-verde-medio);
+    transform: scale(1.02);
+}
+
+/* BOTÃO SAIR */
+
+.sair {
+    width: 45px;
+    height: 45px;
+    text-decoration: none;
     cursor: pointer;
     color: #333;
-    text-decoration: none;
+
+    display: flex;
+    align-items: center;
+    font-size: 25px;
+    justify-content: center;
+
+    transition: 0.2s;
 }
 
+.sair:hover {
+    transform: scale(1.08);
+}
+
+.sair:hover .icone-sair {
+    stroke: var(--cor-texto);
+}
+
+.btn-add {
+    width: 82%;
+    height: clamp(40px, 5vh, 52px);
+    margin: 0 auto clamp(14px, 1.8vh, 20px);
+    border: none;
+    border-radius: 13px;
+    background-color: var(--cor-verde-claro);
+    color: var(--cor-texto);
+    font-size: 15px;
+    cursor: pointer;
+    box-shadow: 0 4px 5px #aaa;
+}
 /* CONTAINER GERAL */
 
 .container {
@@ -140,18 +214,6 @@ header h1 {
     flex-direction: column;
 }
 
-.btn-add {
-    width: 82%;
-    height: clamp(40px, 5vh, 52px);
-    margin: 0 auto clamp(14px, 1.8vh, 20px);
-    border: none;
-    border-radius: 13px;
-    background-color: var(--cor-verde-claro);
-    color: var(--cor-texto);
-    font-size: 15px;
-    cursor: pointer;
-    box-shadow: 0 4px 5px #aaa;
-}
 
 hr {
     border: none;
@@ -199,6 +261,7 @@ hr {
     cursor: pointer;
 }
 
+.btn-admin:hover,
 .btn-add:hover,
 .paciente:hover {
     background-color: var(--cor-verde-medio);
@@ -381,15 +444,21 @@ hr {
 /* CAIXA DO CHECKLIST */
 
 .checklist {
-    width: 100%;
-    flex: 1;
-    min-height: 160px;
-    margin-top: clamp(10px, 1.6vh, 18px);
-    border-radius: clamp(18px, 1.8vw, 28px);
+    width: 760px;
+    height: 100px; /* altura */
+    min-width: 760px; 
+    max-width: 760px;
+    min-height: 100px; /* altura */
+    max-height: 100px; /* altura */
+    
+    overflow-y: auto;
+    overflow-x: hidden;
+    flex: none;
+    display: block;
+    margin-top: 10px;
+    border-radius: 18px;
     background-color: var(--cor-card);
     border: 1px solid #d5d9e0;
-    box-shadow: -6px 6px 5px #ccc;
-
     padding: 18px;
     outline: none;
     resize: none;
@@ -397,8 +466,6 @@ hr {
     font-size: 15px;
     color: var(--cor-cinza);
 }
-
-
 
 /* TELAS MENORES */
 

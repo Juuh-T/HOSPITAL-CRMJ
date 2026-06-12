@@ -11,12 +11,18 @@
 
     <header>
         <h1>Hospital CRMJ</h1>
-        <a href="javascript:void(0)" class="sair" onclick="js_sair()">
-        <span>&#8618;</span>
-        </a>
         
-        <button onclick="js_irAreaAdmin()" type="button">Área Admin</button>
+        <div class="acoes-header">
 
+            <button class="btn-relatorio" onclick="js_irAreaRelatorio()" type="button">Relatório</button>
+            
+            <button class="btn-admin" onclick="js_irAreaAdmin()" type="button">Área Admin</button>
+            
+            <a href="../index.html" class="sair" onclick="js_sair()">
+                <span>&#8618;</span>
+            </a>
+        
+        </div>
     </header>
 
     <main class="container">
@@ -94,11 +100,10 @@
 
                 <h3>Checklist</h3>
                     <textarea
-                        id="checklistPaciente"
-                        class="campo-dado"
-                        rows="10"
-                        readonly>
+                        id="checklistPaciente" class="checklist" readonly>
                     </textarea>
+
+                    <br>
 
                 <h3>Foto frontal</h3><img id="fotoPaciente" src="" width="200">
 
