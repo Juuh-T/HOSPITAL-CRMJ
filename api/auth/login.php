@@ -37,7 +37,7 @@
 
         //aqui ele verifica se o medico ta desativado, se sim, ele não deixa logar
         //COMENTADO PQ NO BANCO N TEM STATUS MEDICO AINDA deixei assim pra testar
-        /*
+        
         if ($medico["status_medico"] == "DESATIVADO") {
             echo json_encode([
                 "status" => false,
@@ -53,7 +53,7 @@
             ]);
             exit;
         }
-        */
+        
 
         // INICAR SESSAO SERVIDOR PHP //
         //inicia sessao no servidor php pra guardar as informacoes do medico
