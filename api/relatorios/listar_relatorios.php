@@ -15,10 +15,42 @@ if (!isset($_SESSION["id_medico"])) {
     exit;
 }
 
+function calcularScoreRelatorio($linha) {
+    $sintomas = [
+        ["sintoma_deficiencia_intelectual", 0.32, 0.20],
+        ["sintoma_face_alongada_orelhas", 0.29, 0.09],
+        ["sintoma_macroorquidismo", 0.26, 0.00],
+        ["sintoma_hipermobilidade_articular", 0.19, 0.04],
+        ["sintoma_dificuldade_aprendizagem", 0.18, 0.28],
+        ["sintoma_deficit_atencao", 0.17, 0.12],
+        ["sintoma_movimentos_repetitivos", 0.17, 0.05],
+        ["sintoma_atraso_fala", 0.14, 0.01],
+        ["sintoma_hiperatividade", 0.12, 0.04],
+        ["sintoma_evita_contato_visual", 0.06, 0.08],
+        ["sintoma_evita_contato_fisico", 0.04, 0.07],
+        ["sintoma_agressividade", 0.01, 0.02]
+    ];
+
+    $score = 0;
+    $masculino = ($linha["sexo"] ?? "") === "Masculino";
+
+    foreach ($sintomas as $sintoma) {
+        if ((int)$linha[$sintoma[0]] === 1) {
+            $score += $masculino ? $sintoma[1] : $sintoma[2];
+        }
+    }
+
+    return number_format($score, 2, ".", "");
+}
+
 $resposta = json_decode(
     file_get_contents("php://input"),
     true
 );
+
+if (!is_array($resposta)) {
+    $resposta = [];
+}
 
 $pesquisaPaciente = $resposta["pesquisaPaciente"] ?? "";
 $nomeMedico = $resposta["nomeMedico"] ?? "";
@@ -60,8 +92,21 @@ $query = "
     SELECT
         e.id_exame,
         e.data_exame,
+        e.sintoma_deficiencia_intelectual,
+        e.sintoma_face_alongada_orelhas,
+        e.sintoma_macroorquidismo,
+        e.sintoma_hipermobilidade_articular,
+        e.sintoma_dificuldade_aprendizagem,
+        e.sintoma_deficit_atencao,
+        e.sintoma_movimentos_repetitivos,
+        e.sintoma_atraso_fala,
+        e.sintoma_hiperatividade,
+        e.sintoma_evita_contato_visual,
+        e.sintoma_evita_contato_fisico,
+        e.sintoma_agressividade,
         m.nome AS nome_medico,
         p.nome AS nome_paciente,
+        p.sexo,
         p.cpf_paciente
     FROM examen e
     INNER JOIN paciente p
@@ -77,13 +122,13 @@ $tipos = "";
 $valores = [];
 
 if ($_SESSION["tipo"] !== "ADM") {
-    $query .= "AND m.id_medico = ?";
+    $query .= " AND m.id_medico = ?";
     $tipos .= "i";
     $valores[] = $_SESSION["id_medico"];
 }
 
 if ($pesquisaPaciente !== "") {
-    $query .= "AND (p.nome LIKE ? OR p.cpf_paciente LIKE ?)";
+    $query .= " AND (p.nome LIKE ? OR p.cpf_paciente LIKE ?)";
     $tipos .= "ss";
     $busca = "%" . $pesquisaPaciente . "%";
     $valores[] = $busca;
@@ -91,24 +136,24 @@ if ($pesquisaPaciente !== "") {
 }
 
 if ($nomeMedico !== "") {
-    $query .= "AND m.nome LIKE ?";
+    $query .= " AND m.nome LIKE ?";
     $tipos .= "s";
     $valores[] = "%" . $nomeMedico . "%";
 }
 
 if ($dataInicio !== "") {
-    $query .= "AND DATE(e.data_exame) >= ?";
+    $query .= " AND DATE(e.data_exame) >= ?";
     $tipos .= "s";
     $valores[] = $dataInicio;
 }
 
 if ($dataFinal !== "") {
-    $query .= "AND DATE(e.data_exame) <= ?";
+    $query .= " AND DATE(e.data_exame) <= ?";
     $tipos .= "s";
     $valores[] = $dataFinal;
 }
 
-$query .= "ORDER BY e.data_exame DESC";
+$query .= " ORDER BY e.data_exame DESC";
 $stmt = $conexao->prepare($query);
 if (!$stmt) {
     echo json_encode([
@@ -139,7 +184,8 @@ while ($linha = $resultado->fetch_assoc()) {
         ),
         "medico" => $linha["nome_medico"],
         "paciente" => $linha["nome_paciente"],
-        "cpf" => $linha["cpf_paciente"]
+        "cpf" => $linha["cpf_paciente"],
+        "score" => calcularScoreRelatorio($linha)
     ];
 }
 

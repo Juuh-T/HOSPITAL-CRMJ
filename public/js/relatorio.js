@@ -1,3 +1,5 @@
+document.addEventListener("DOMContentLoaded", js_gerarRelatorio);
+
 function js_gerarRelatorio() {
 
     const pesquisaPaciente = document.getElementById("pesquisaPaciente").value;
@@ -79,6 +81,7 @@ function js_gerarRelatorio() {
                 <span>Médico</span>
                 <span>Paciente</span>
                 <span>CPF do paciente</span>
+                <span>Score</span>
                 <span>PDF</span>
             </div>
         `;
@@ -99,6 +102,7 @@ function js_gerarRelatorio() {
                     <span>${relatorio.medico}</span>
                     <span>${relatorio.paciente}</span>
                     <span>${relatorio.cpf}</span>
+                    <span>${relatorio.score}</span>
                     <button
                         type="button"
                         class="btn-download"

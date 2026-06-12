@@ -1,7 +1,41 @@
 <?php
 
+session_start();
+
 require_once(__DIR__ . "/../config/conexao.php");
 require_once(__DIR__ . "/../lib/fpdf/fpdf.php");
+
+if (!isset($_SESSION["id_medico"])) {
+    die("Sessao invalida.");
+}
+
+function calcularScoreRelatorioPdf($dados) {
+    $sintomas = [
+        ["sintoma_deficiencia_intelectual", 0.32, 0.20],
+        ["sintoma_face_alongada_orelhas", 0.29, 0.09],
+        ["sintoma_macroorquidismo", 0.26, 0.00],
+        ["sintoma_hipermobilidade_articular", 0.19, 0.04],
+        ["sintoma_dificuldade_aprendizagem", 0.18, 0.28],
+        ["sintoma_deficit_atencao", 0.17, 0.12],
+        ["sintoma_movimentos_repetitivos", 0.17, 0.05],
+        ["sintoma_atraso_fala", 0.14, 0.01],
+        ["sintoma_hiperatividade", 0.12, 0.04],
+        ["sintoma_evita_contato_visual", 0.06, 0.08],
+        ["sintoma_evita_contato_fisico", 0.04, 0.07],
+        ["sintoma_agressividade", 0.01, 0.02]
+    ];
+
+    $score = 0;
+    $masculino = ($dados["sexo"] ?? "") === "Masculino";
+
+    foreach ($sintomas as $sintoma) {
+        if ((int)$dados[$sintoma[0]] === 1) {
+            $score += $masculino ? $sintoma[1] : $sintoma[2];
+        }
+    }
+
+    return number_format($score, 2, ".", "");
+}
 
 $idExame = $_GET["id"] ?? 0;
 
@@ -11,6 +45,7 @@ SELECT
     p.nome AS nome_paciente,
     p.idade,
     p.peso,
+    p.sexo,
     p.cpf_paciente,
 
     m.nome AS nome_medico,
@@ -25,15 +60,24 @@ INNER JOIN paciente p
     ON p.id_paciente = e.paciente_id
 LEFT JOIN acompanhante a
     ON a.paciente_id = p.id_paciente
-LEFT JOIN autorizacoes_medicas am
+INNER JOIN autorizacoes_medicas am
     ON am.paciente_id = p.id_paciente
-LEFT JOIN medico m
+INNER JOIN medico m
     ON m.id_medico = am.medico_id
 WHERE e.id_exame = ?
 ";
 
+$tipos = "i";
+$valores = [$idExame];
+
+if ($_SESSION["tipo"] !== "ADM") {
+    $query .= " AND am.medico_id = ?";
+    $tipos .= "i";
+    $valores[] = $_SESSION["id_medico"];
+}
+
 $stmt = $conexao->prepare($query);
-$stmt->bind_param("i", $idExame);
+$stmt->bind_param($tipos, ...$valores);
 $stmt->execute();
 
 $resultado = $stmt->get_result();
@@ -43,6 +87,7 @@ if ($resultado->num_rows === 0){
 }
 
 $dados = $resultado->fetch_assoc();
+$score = calcularScoreRelatorioPdf($dados);
 
 $pdf = new FPDF();
 $pdf->AddPage();
@@ -76,6 +121,10 @@ $pdf->Cell(0,8,
 
 $pdf->Cell(0,8,
     utf8_decode("Peso: " . $dados['peso'] . " kg"),
+    0,1);
+
+$pdf->Cell(0,8,
+    utf8_decode("Sexo: " . $dados['sexo']),
     0,1);
 
 $pdf->Ln(5);
@@ -167,6 +216,14 @@ $pdf->Cell(
         "Resultado: " .
         ($dados['resultado'] ? "POSITIVO" : "NEGATIVO")
     ),
+    0,
+    1
+);
+
+$pdf->Cell(
+    0,
+    8,
+    utf8_decode("Score: " . $score),
     0,
     1
 );
