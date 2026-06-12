@@ -13,28 +13,34 @@ if (!isset($_SESSION["id_medico"])) {
 }
 $id_medico = $_SESSION["id_medico"];
 
+function executarOuFalhar($stmt, $mensagem) {
+    if (!$stmt || !$stmt->execute()) {
+        throw new Exception($mensagem);
+    }
+}
+
 try {
     // Inicia uma transação: se der erro em uma tabela, ele cancela tudo para não sujar o banco
     $conexao->begin_transaction();
 
-    $nome_paciente = $_POST['nome_paciente'];
-    $idade = $_POST['idade'];
-    $peso = $_POST['peso'];
-    $cpf_paciente = $_POST['cpf_paciente'];
-    $sexo = $_POST['sexo']; // Precisamos do sexo para o cálculo de risco
+    $nome_paciente = $_POST['nome_paciente'] ?? "";
+    $idade = (int)($_POST['idade'] ?? 0);
+    $peso = (float)($_POST['peso'] ?? 0);
+    $cpf_paciente = preg_replace('/\D/', '', $_POST['cpf_paciente'] ?? "");
+    $sexo = $_POST['sexo'] ?? "";
 
-    $stmt_paciente = $conexao->prepare("INSERT INTO paciente (nome, idade, peso, cpf_paciente) VALUES (?, ?, ?, ?)");
-    $stmt_paciente->bind_param("sids", $nome_paciente, $idade, $peso, $cpf_paciente);
-    $stmt_paciente->execute();
+    $stmt_paciente = $conexao->prepare("INSERT INTO paciente (nome, idade, peso, sexo, cpf_paciente) VALUES (?, ?, ?, ?, ?)");
+    $stmt_paciente->bind_param("sidss", $nome_paciente, $idade, $peso, $sexo, $cpf_paciente);
+    executarOuFalhar($stmt_paciente, "Nao foi possivel cadastrar o paciente. Verifique se o CPF ja existe.");
     $paciente_id = $conexao->insert_id; // Pega o ID gerado automaticamente
 
-    $nome_acompanhante = $_POST['nome_acompanhante'];
-    $cpf_acompanhante = $_POST['cpf_acompanhante'];
-    $telefone_acompanhante = $_POST['telefone_acompanhante'];
+    $nome_acompanhante = $_POST['nome_acompanhante'] ?? "";
+    $cpf_acompanhante = preg_replace('/\D/', '', $_POST['cpf_acompanhante'] ?? "");
+    $telefone_acompanhante = $_POST['telefone_acompanhante'] ?? "";
 
     $stmt_acomp = $conexao->prepare("INSERT INTO acompanhante (paciente_id, nome, cpf_acompanhante, telefone) VALUES (?, ?, ?, ?)");
     $stmt_acomp->bind_param("isss", $paciente_id, $nome_acompanhante, $cpf_acompanhante, $telefone_acompanhante);
-    $stmt_acomp->execute();
+    executarOuFalhar($stmt_acomp, "Nao foi possivel cadastrar o acompanhante.");
 
     $caminhos_fotos = [null, null, null, null];
     $diretorio_uploads = __DIR__ . '/uploads/'; // Pasta onde as fotos ficarão salvas
@@ -53,8 +59,25 @@ try {
                 $caminho_completo = $diretorio_uploads . $nome_arquivo;
                 
                 if (move_uploaded_file($_FILES['fotos_paciente']['tmp_name'][$i], $caminho_completo)) {
-                    $caminhos_fotos[$i] = "uploads/" . $nome_arquivo; // Caminho salvo no banco
+                    $caminhos_fotos[$i] = "../api/config/uploads/" . $nome_arquivo; // Caminho salvo no banco
                 }
+            }
+        }
+    }
+
+    $campos_foto = ['fotoFrente', 'fotoDireita', 'fotoEsquerda'];
+    foreach ($campos_foto as $i => $campo_foto) {
+        if (
+            isset($_FILES[$campo_foto]) &&
+            $_FILES[$campo_foto]['error'] === UPLOAD_ERR_OK &&
+            $i < 4
+        ) {
+            $extensao = pathinfo($_FILES[$campo_foto]['name'], PATHINFO_EXTENSION);
+            $nome_arquivo = "paciente_{$paciente_id}_foto_{$i}_" . time() . ".{$extensao}";
+            $caminho_completo = $diretorio_uploads . $nome_arquivo;
+
+            if (move_uploaded_file($_FILES[$campo_foto]['tmp_name'], $caminho_completo)) {
+                $caminhos_fotos[$i] = "../api/config/uploads/" . $nome_arquivo;
             }
         }
     }
@@ -100,12 +123,12 @@ try {
         $s1, $s2, $s3, $s4, $s5, $s6, $s7, $s8, $s9, $s10, $s11, $s12,
         $caminhos_fotos[0], $caminhos_fotos[1], $caminhos_fotos[2], $caminhos_fotos[3]
     );
-    $stmt_exame->execute();
+    executarOuFalhar($stmt_exame, "Nao foi possivel salvar a triagem.");
 
     // O médico que cadastrou já ganha a autorização validada (1) para esse paciente
     $stmt_auth = $conexao->prepare("INSERT INTO autorizacoes_medicas (medico_id, paciente_id, validado) VALUES (?, ?, 1)");
     $stmt_auth->bind_param("ii", $id_medico, $paciente_id);
-    $stmt_auth->execute();
+    executarOuFalhar($stmt_auth, "Nao foi possivel liberar o paciente para o medico.");
 
     // Confirma todas as operações no banco!
     $conexao->commit();

@@ -25,6 +25,7 @@ SELECT
     p.nome,
     p.idade,
     p.peso,
+    p.sexo,
     p.cpf_paciente,
 
     a.nome AS nome_acompanhante,
@@ -76,6 +77,7 @@ while ($linha = $resultado->fetch_assoc()) {
         "nome" => $linha["nome"],
         "idade" => $linha["idade"],
         "peso" => $linha["peso"],
+        "sexo" => $linha["sexo"],
         "cpf_paciente" => $linha["cpf_paciente"],
 
         "acompanhante" => [

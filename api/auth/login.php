@@ -10,11 +10,11 @@
     //3. ler os dados que vieram do JavaScript
     $resposta = json_decode(file_get_contents("php://input"), true);
 
-    $crm = $resposta["crm"] ?? "";
+    $login = trim($resposta["crm"] ?? "");
     $senha = $resposta["senha"] ??""; //?? diz que se existir otimo, se n usa o vazio
 
     //4. validar se CRM/senha vieram vazios
-    if ($crm == "" || $senha == "") { 
+    if ($login == "" || $senha == "") { 
         echo json_encode([
             "status" => false,
             "mensagem" => "Crm e senha obrigatórios."
@@ -22,9 +22,9 @@
         exit;
     }
 
-    $query = "SELECT id_medico, nome, crm, status_medico ,tipo FROM medico WHERE crm = ? AND senha = ?";
+    $query = "SELECT id_medico, nome, crm, status_medico ,tipo FROM medico WHERE (crm = ? OR nome = ?) AND senha = ?";
     $stmt = $conexao->prepare($query);
-    $stmt->bind_param("ss", $crm, $senha);
+    $stmt->bind_param("sss", $login, $login, $senha);
 
     $stmt->execute();
     $resultado = $stmt->get_result();

@@ -21,3 +21,13 @@ if (!isset($_SESSION["tipo"]) || $_SESSION["tipo"] !== "ADM") {
     ]);
     exit;
 }
+
+if (realpath($_SERVER["SCRIPT_FILENAME"]) === __FILE__) {
+    header("Content-Type: application/json; charset=utf-8");
+    echo json_encode([
+        "status" => true,
+        "mensagem" => "Admin autenticado.",
+        "nome" => $_SESSION["nome"] ?? ""
+    ]);
+    exit;
+}
