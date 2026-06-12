@@ -53,21 +53,48 @@ header h1 {
 }
 
 .sair {
-    font-size: 25px;
-    color: #333;
+    width: 45px;
+    height: 45px;
     text-decoration: none;
     cursor: pointer;
+    color: #333;
+
+    display: flex;
+    align-items: center;
+    font-size: 25px;
+    justify-content: center;
+
+    transition: 0.2s;
+}
+
+.sair:hover {
+    transform: scale(1.08);
+}
+
+.sair:hover .icone-sair {
+    stroke: var(--cor-texto);
 }
 
 /* CONTAINER */
 
 .container {
-    width: 100%;
-    height: calc(100vh - var(--altura-header));
+    width: 92vw;
+    height: 82vh;
+    margin: 3vh auto;
+
+    background-color: var(--cor-caixa);
+    border-radius: 38px;
+    padding: clamp(18px, 2vw, 30px);
+
+    box-shadow: inset 0 0 6px #999;
+
     display: flex;
-    align-items: center;
+    align-items: stretch;
     justify-content: center;
-    padding: 35px 4vw;
+    gap: 18px;
+
+    position: relative;
+    overflow: hidden;
 }
 
 /* CAIXA GERAL */
@@ -75,11 +102,10 @@ header h1 {
 .container::before {
     content: "";
     position: absolute;
-    width: 92vw;
-    height: 82vh;
-    background-color: var(--cor-caixa);
-    border-radius: 38px;
-    box-shadow: inset 0 0 6px #999, 0 4px 8px #bbb;
+    inset: clamp(18px, 2vw, 30px);
+    background-color: var(--cor-card);
+    border-radius: 22px;
+    box-shadow: inset 0 0 4px #aaa;
     z-index: 0;
 }
 
@@ -93,12 +119,16 @@ header h1 {
 .sidebar {
     width: 23vw;
     min-width: 300px;
-    min-height: 78vh;
-    background-color: var(--cor-card);
-    border-radius: 26px;
+    height: 100%;
+
+    background-color: transparent;
+    border-radius: 0;
     padding: 24px 22px;
-    box-shadow: 3px 0 8px #bbb, inset 0 0 3px #aaa;
-    margin-right: 12px;
+
+    box-shadow: none;
+    border-right: 1px solid #d2d2d2;
+
+    margin-right: 0;
 }
 
 .cabecalho-filtros h2 {
@@ -176,12 +206,14 @@ hr {
 /* CONTEÚDO */
 
 .conteudo {
-    width: 66vw;
-    height: 78vh;
-    background-color: var(--cor-card);
-    border-radius: 26px;
+    flex: 1;
+    height: 100%;
+
+    background-color: transparent;
+    border-radius: 0;
     padding: 30px 45px;
-    box-shadow: inset 0 0 3px #aaa;
+
+    box-shadow: none;
 }
 
 /* TABELA */
@@ -226,21 +258,17 @@ hr {
 
 .btn-pesquisar{
     width: 100%;
-
-    height: 45px;
-
-    margin-top: 15px;
-
-    border: 1px solid var(--cor-borda);
-    border-radius: 8px;
-
-    background-color: var(--cor-header);
-
+    max-width: 300px;
+    height: 50px;
+    border: none;
+    border-radius: 15px;
+    background-color: var(--cor-verde-claro);
     color: var(--cor-texto);
-    font-size: 15px;
-    font-weight: 500;
-
+    font-size: 22px;
     cursor: pointer;
+    box-shadow: 0 4px 5px #aaa;
+    margin-top: 12px;
+    transition: 0.2s;
 }
 
 .btn-pesquisar:hover{

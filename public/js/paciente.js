@@ -43,6 +43,33 @@ function js_sair(){
     })
 }
 
+function js_irAreaRelatorio() {
+    window.location.href = "relatorio.html";
+}
+
+function js_irAreaAdmin() {
+    fetch("../api/auth/verificar_adm.php", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" }
+    })
+    .then(function (respostaPhp) {
+        return respostaPhp.json();
+    })
+    .then(function (dados) {
+        console.log(dados);
+
+        if (dados.status === true) {
+            window.location.href = "profissionais.html";
+        } else {
+            alert(dados.mensagem);
+        }
+    })
+    .catch(function (erro) {
+        console.log("Erro ao verificar admin:", erro);
+        alert("Erro ao verificar permissão de administrador.");
+    });
+}
+
 function js_iniciarPaginaPaciente() {
     const listaPacientes = document.querySelector(".lista-pacientes");
     const campoPesquisa = document.getElementById("campoPesquisa");
@@ -176,19 +203,3 @@ function calcularScore(checklist, sexo) {
 }
 
 
-// funcao area admin
-function js_irAreaAdmin(){
-    fetch("../api/auth/verificar_adm.php", {
-        method: "POST",
-        headers: {"Content-Type": "application/json"}
-    })
-    .then( function ( respostaPhp ){return respostaPhp.json();})
-    .then( function ( dados ){
-        if (dados.status === true){
-            window.location.href = "profissionais.html"
-        }
-        else{
-            alert(dados.mensagem);
-        }
-    })
-}

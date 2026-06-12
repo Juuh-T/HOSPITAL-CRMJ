@@ -11,9 +11,9 @@
 <body>
 
     <header>
-        <h1>Hospital</h1>
+        <h1>Hospital CRMJ</h1>
 
-        <a href="paciente.html">
+        <a href="paciente.html" class="sair">
             <span>&#8618;</span>
         </a>
     </header>
@@ -35,10 +35,14 @@
                     <input type="text" id="pesquisaPaciente" name="pesquisaPaciente">
                 </div>
 
+                <br>
+
                 <div class="grupo-filtro">
                     <label for="nomeMedico">Nome do médico:</label>
                     <input type="text" id="nomeMedico" name="nomeMedico">
                 </div>
+
+                <br>
 
                 <div class="grupo-filtro">
                     <label>Data inicial:</label>
@@ -60,12 +64,7 @@
                     </div>
                 </div>
 
-                <button
-                    type="button"
-                    class="btn-pesquisar"
-                    onclick="js_gerarRelatorio()">
-                    Pesquisar
-                </button>
+                <button type="button" class="btn-pesquisar" onclick="js_gerarRelatorio()">Pesquisar</button>
 
             </form>
 
