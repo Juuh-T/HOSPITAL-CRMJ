@@ -9,6 +9,7 @@ Um sistema completo de gerenciamento de pacientes e profissionais de saúde, des
 ## 📋 Sumário
 
 - [Sobre o Projeto](#-sobre-o-projeto)
+- [Documentação](#-documentação)
 - [Stack de Tecnologias](#-stack-de-tecnologias)
 - [Funcionalidades](#-funcionalidades)
 - [Requisitos](#-requisitos)
@@ -36,7 +37,23 @@ O **HOSPITAL-CRMJ** é um sistema web de gerenciamento de pacientes que permite:
 
 ---
 
-## 💻 Stack de Tecnologias
+## � Documentação
+
+A documentação completa do projeto, incluindo propósito, contexto, objetivos, banco de dados e demonstração das funcionalidades está disponível em:
+
+📄 **[HOSPITAL-CRMJ - Apresentação do Projeto](./HOSPITAL-CRMJ-Apresentacao.pdf)**
+
+O documento apresenta:
+- ✅ Propósito do sistema
+- ✅ Contexto e justificativa (LGPD)
+- ✅ Visão geral dos problemas resolvidos
+- ✅ Objetivos e fluxo de acesso
+- ✅ Modelagem do banco de dados
+- ✅ Demonstração das telas e funcionalidades
+
+---
+
+## �💻 Stack de Tecnologias
 
 | Componente | Tecnologia |
 |-----------|-----------|
