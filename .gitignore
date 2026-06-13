@@ -1,0 +1,33 @@
+# Variáveis de ambiente
+.env
+.env.local
+.env.*.local
+
+# Dependências
+node_modules/
+vendor/
+
+# Cache
+*.cache
+
+# Logs
+*.log
+logs/
+
+# Arquivos de uploads
+api/config/uploads/*
+!api/config/uploads/.gitkeep
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Compilados
+*.php~
+*.tmp
